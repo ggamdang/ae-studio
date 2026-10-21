@@ -128,8 +128,10 @@ def main():
     info['CFBundleDocumentTypes']=[{'CFBundleTypeName':'AE Studio supported documents','CFBundleTypeRole':'Editor','LSHandlerRank':'Alternate','CFBundleTypeExtensions':sorted(extensions)}]
     info_path.write_bytes(plistlib.dumps(info))
     # Final ad-hoc signing is performed after tests stop modifying fixture files.
-    source=SUITE/'Source';shutil.copytree(SOURCE,source/'AE Studio',ignore=shutil.ignore_patterns('node_modules','__pycache__','*.pyc','google-desktop.json'))
-    shutil.copytree(ROOT,source/'macos-build',ignore=shutil.ignore_patterns('build','checks','__pycache__'))
+    source=SUITE/'Source';shutil.copytree(SOURCE,source/'desktop',ignore=shutil.ignore_patterns('node_modules','__pycache__','*.pyc','google-desktop.json'))
+    shutil.copytree(ROOT,source/'macos',ignore=shutil.ignore_patterns('build','checks','diagnostics','__pycache__'))
+    shutil.copytree(REPO/'.github',source/'.github')
+    shutil.copy2(ROOT/'SOURCE-README.md',source/'README.md')
     collect_sources(py,source/'PDF dependencies')
     fetch(LOCK['mupdf-source'],source/'PDF dependencies/mupdf-1.27.2-source.tar.gz')
     for pin in json.loads((ROOT/'archive-source-manifest.json').read_text()):
