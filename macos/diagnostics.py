@@ -10,7 +10,7 @@ def collect(destination):
         if not file.is_file() or any(p in excluded for p in relative.parts) or file.name.startswith('control'):continue
         if file.suffix not in {'.json','.log','.png','.pdf'}:continue
         target=destination/'checks'/relative;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(file,target)
-    for name in ['native-index.json','runtime-downloads.json','format-guide.json','pdf-resolved-lock.txt','language-resolved-lock.txt']:
+    for name in ['native-index.json','runtime-downloads.json','format-guide.json','google-registration.json','pdf-resolved-lock.txt','language-resolved-lock.txt']:
         file=ROOT/'build'/name
         if file.is_file():shutil.copy2(file,destination/name)
 if __name__=='__main__':collect(ROOT/'diagnostics')

@@ -19,6 +19,7 @@ if (D/'pdf/language-fixtures').exists():shutil.copytree(D/'pdf/language-fixtures
 if (D/'pdf/language-test-report.json').exists():shutil.copy2(D/'pdf/language-test-report.json',QA/'language-test-report.json')
 test('hangul-start',[D/'hangul-runtime/hwp','--version'])
 test('avif-conversion',[PY,ROOT/'test_avif.py',D,QA/'avif'])
+test('film-content',[PY,ROOT/'test_film_content.py',ROOT/'checks/exports/inputs 한글/image.png',ROOT/'checks/exports/outputs 한글/film.png',ROOT/'checks/exports/outputs 한글/film.mp4',QA/'film'])
 fixtures=[ROOT/'checks/exports/outputs 한글'/name for name in ['document.docx','document.pdf','sheet.xlsx','slides.pptx']]
 fixtures.append(QA/'avif/image 한글.avif')
 env={**os.environ,'STUDIO_TEST_MAC':'1','STUDIO_TEST_OUTPUT':str(QA/'gui'),'UNIFIED_STUDIO_DATA':str(QA/'profile'),'AE_MAC_FIXTURES':json.dumps([str(p) for p in fixtures])}

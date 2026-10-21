@@ -10,6 +10,9 @@ assert required<=declared,sorted(required-declared)
 registry='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister'
 registered=subprocess.check_output([registry,'-dump'],text=True)
 assert 'com.aeeducation.aestudio' in registered,'Installed AE Studio must be registered by Installer'
+assert str(APP) in registered,'Finder registration must point to the installed app, not the build copy'
+for editor in catalog:
+    assert str(APP.parent/'Apps'/editor['bundleName']) in registered,'Missing installed Open With choice: '+editor['name']
 py=d/'pdf/runtime/python/bin/python3'
 def worker(action,source,*,allowed_rejection=None,log_name=None,**options):
     payload={'action':action,'options':{'inputs':[str(source)],'outputDir':str(QA),**options}}

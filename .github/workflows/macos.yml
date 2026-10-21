@@ -29,6 +29,11 @@ jobs:
         run: python3 macos/build_companion.py
       - name: Write the format guide
         run: node macos/format_guide.cjs
+      - name: Embed approved Google desktop registration
+        env:
+          AE_GOOGLE_DESKTOP_JSON: ${{ secrets.AE_GOOGLE_DESKTOP_JSON }}
+          AE_REQUIRE_GOOGLE_REGISTRATION: ${{ github.repository == 'ggamdang/ae-studio' && '1' || '0' }}
+        run: python3 macos/bundle_registration.py
       - name: Bundle optional Mac local AI setup
         run: python3 macos/build_local_ai.py
       - name: Test Mac companion

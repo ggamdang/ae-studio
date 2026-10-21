@@ -4,6 +4,10 @@ async function run({win,openEditor,openFiles,views,publicState,app,testDir}){
  const results=[];
  try{
   const state=publicState();assert.equal(state.modules.filter(m=>require('./mac-native.cjs').native(m.id)).length,13);assert(state.modules.filter(m=>require('./mac-native.cjs').native(m.id)).every(m=>m.installed));results.push('13 native apps discoverable');
+  const connectionState=await win.webContents.executeJavaScript("window.studio.connections('state')");
+  assert.equal(connectionState.oauth.error,'');assert.equal(connectionState.oauth.accounts.length,0,'A shared installer must not include personal accounts');
+  const registrationIncluded=require('node:fs').existsSync(path.join(__dirname,'integrations/google-desktop.json'));
+  assert.equal(connectionState.oauth.googleConfigured,registrationIncluded);results.push(registrationIncluded?'Google registration ready; no personal accounts bundled':'Custom build requires Google registration import');
   await openEditor('pdf-tools');const wc=views.get('pdf-tools').webContents;
   const capabilities=await require('./pdf/bridge.cjs').run('capabilities');assert.equal(capabilities.ok,true);results.push('isolated PDF worker starts');
   const shot=await win.webContents.capturePage();await fs.mkdir(testDir,{recursive:true});await fs.writeFile(path.join(testDir,'home.png'),shot.toPNG());
