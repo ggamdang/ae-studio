@@ -45,6 +45,16 @@ for app in apps:
                     opened=subprocess.run(['/usr/bin/open','-a',index[ident]['bundle']],capture_output=True,text=True,timeout=15)
                     (profile/'activation.log').write_text(opened.stdout+'\n'+opened.stderr)
                     if opened.returncode:raise RuntimeError('macOS could not activate the EffectCraft bundle')
+                    # A process trace showed live Metal shader compilation on the
+                    # virtual Mac, before the UI can service its 60-second API.
+                    # Wait for the upstream readiness milestone instead of sending
+                    # a request while the first GPU pipelines are still compiling.
+                    ready_until=time.monotonic()+600
+                    while p.poll() is None and time.monotonic()<ready_until:
+                        if 'first frame drawn' in (profile/'stderr.log').read_text(errors='replace'):break
+                        time.sleep(.5)
+                    else:raise RuntimeError('EffectCraft did not finish its first Metal frame within ten minutes')
+                    result['firstFrameSeconds']=round(time.time()-start,2)
                 with sock:
                     sock.settimeout(60);stream=sock.makefile('rwb')
                     def request(value):
