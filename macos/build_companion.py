@@ -1,5 +1,5 @@
 """Build a relocatable Apple-silicon AE Studio bundle using free runtimes."""
-import concurrent.futures,hashlib,json,os,pathlib,plistlib,shutil,subprocess,sys,tarfile,tempfile,urllib.request,zipfile
+import concurrent.futures,hashlib,http.client,json,os,pathlib,plistlib,shutil,subprocess,sys,tarfile,tempfile,time,urllib.error,urllib.request,uuid,zipfile
 from xml.sax.saxutils import escape
 ROOT=pathlib.Path(__file__).resolve().parent
 REPO=ROOT.parent;SOURCE=REPO/'desktop';BUILD=ROOT/'build';SUITE=BUILD/'AE Studio'
@@ -10,8 +10,22 @@ def fetch(pin,destination=None):
     name=pin['url'].rsplit('/',1)[1];dest=destination or BUILD/'downloads'/name
     dest.parent.mkdir(parents=True,exist_ok=True)
     if not dest.exists():
-        request=urllib.request.Request(pin['url'],headers={'User-Agent':'AE-Studio-Mac-build'})
-        with urllib.request.urlopen(request,timeout=180) as src,dest.open('wb') as out:shutil.copyfileobj(src,out)
+        partial=dest.with_name(dest.name+'.part-'+uuid.uuid4().hex)
+        for attempt in range(4):
+            try:
+                request=urllib.request.Request(pin['url'],headers={'User-Agent':'AE-Studio-Mac-build'})
+                with urllib.request.urlopen(request,timeout=180) as src,partial.open('xb') as out:shutil.copyfileobj(src,out)
+                with partial.open('rb') as f:downloaded=hashlib.file_digest(f,'sha256').hexdigest()
+                if downloaded!=pin['sha256']:raise RuntimeError('Checksum mismatch: '+name)
+                partial.replace(dest)
+                break
+            except (urllib.error.URLError,OSError,http.client.IncompleteRead) as error:
+                if isinstance(error,urllib.error.HTTPError) and error.code not in {408,429,500,502,503,504}:raise
+                if attempt==3:raise
+                print('Temporary download failure; retrying',name,'attempt',attempt+2,flush=True)
+                time.sleep(2**attempt)
+            finally:
+                partial.unlink(missing_ok=True)
     with dest.open('rb') as f:actual=hashlib.file_digest(f,'sha256').hexdigest()
     if actual!=pin['sha256']:raise RuntimeError('Checksum mismatch: '+name)
     RECORDS.append({'url':pin['url'],'sha256':actual,'bytes':dest.stat().st_size})
