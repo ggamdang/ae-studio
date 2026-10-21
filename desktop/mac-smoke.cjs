@@ -1,14 +1,37 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path');
-async function run({win,openEditor,openFiles,views,publicState,app,testDir}){
+async function run({win,openEditor,openFiles,views,publicState,app,testDir,failures=[]}){
  const results=[];
  try{
   const state=publicState();assert.equal(state.modules.filter(m=>require('./mac-native.cjs').native(m.id)).length,13);assert(state.modules.filter(m=>require('./mac-native.cjs').native(m.id)).every(m=>m.installed));results.push('13 native apps discoverable');
+  const js=code=>win.webContents.executeJavaScript(code);
+  const waitFor=async code=>{const until=Date.now()+15000;while(Date.now()<until){if(await js(code))return;await new Promise(r=>setTimeout(r,100));}throw Error('Shell did not become ready: '+code+'; '+JSON.stringify(failures.filter(f=>f.host==='shell')));};
+  await waitFor(`document.querySelectorAll('#tool-grid .tool-card').length===${state.modules.length} && document.querySelectorAll('#navigation .nav-item').length===${state.modules.length}`);
+  assert.equal(await js("document.querySelector('header #choose-folder')===null"),true);
+  await fs.mkdir(testDir,{recursive:true});
+  for(const theme of ['light','dark']){
+   await js(`document.querySelector('[data-theme="${theme}"]').click()`);
+   await waitFor(`document.documentElement.dataset.theme==='${theme}'`);
+   assert.equal(await js('document.documentElement.scrollWidth<=innerWidth'),true);
+   await fs.writeFile(path.join(testDir,'home-'+theme+'.png'),(await win.webContents.capturePage()).toPNG());
+  }
+  await js("document.getElementById('toggle-sidebar').click();document.getElementById('toggle-toolbar').click()");
+  await waitFor("document.body.classList.contains('sidebar-collapsed')&&document.body.classList.contains('toolbar-collapsed')");
+  const saved=JSON.parse(await fs.readFile(path.join(app.getPath('userData'),'workspace.json'),'utf8'));
+  assert.deepEqual(saved.preferences,{theme:'dark',sidebarCollapsed:true,toolbarCollapsed:true});
+  await js("document.getElementById('settings').click()");
+  await waitFor("document.getElementById('settings-dialog').open&&document.querySelectorAll('#format-table tbody tr').length>170");
+  await fs.writeFile(path.join(testDir,'settings-dark.png'),(await win.webContents.capturePage()).toPNG());
+  await js("document.getElementById('close-settings').click();window.studio.appearance({theme:'system',sidebarCollapsed:false,toolbarCollapsed:false})");
+  await waitFor("!document.body.classList.contains('sidebar-collapsed')&&!document.body.classList.contains('toolbar-collapsed')");
+  assert.deepEqual(failures.filter(f=>f.host==='shell'),[]);
+  results.push('Visible tool cards, navigation, light/dark themes, compact controls, saved preferences and format settings');
   const connectionState=await win.webContents.executeJavaScript("window.studio.connections('state')");
   assert.equal(connectionState.oauth.error,'');assert.equal(connectionState.oauth.accounts.length,0,'A shared installer must not include personal accounts');
   const registrationIncluded=require('node:fs').existsSync(path.join(__dirname,'integrations/google-desktop.json'));
   assert.equal(connectionState.oauth.googleConfigured,registrationIncluded);results.push(registrationIncluded?'Google registration ready; no personal accounts bundled':'Custom build requires Google registration import');
   await openEditor('pdf-tools');const wc=views.get('pdf-tools').webContents;
+  assert.deepEqual(views.get('pdf-tools').getBounds(),require('./appearance.cjs').geometry(publicState().preferences,...win.getContentSize(),false));
   const capabilities=await require('./pdf/bridge.cjs').run('capabilities');assert.equal(capabilities.ok,true);results.push('isolated PDF worker starts');
   const shot=await win.webContents.capturePage();await fs.mkdir(testDir,{recursive:true});await fs.writeFile(path.join(testDir,'home.png'),shot.toPNG());
   const toolsShot=await wc.capturePage();await fs.writeFile(path.join(testDir,'pdf-tools.png'),toolsShot.toPNG());

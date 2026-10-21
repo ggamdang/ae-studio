@@ -244,7 +244,7 @@ app.whenReady().then(async()=>{
   if(!testMode||process.env.STUDIO_TEST_INSTALLER==='1'){const launchFiles=fileArguments(process.argv,{defaultApp:process.defaultApp});if(launchFiles.length)queueFiles(launchFiles,'Startup');}
   for(const request of pendingLaunch.splice(0))queueFiles(request.paths,request.source);
   if(testMode)win.show();
-  if(testMode&&process.env.STUDIO_TEST_MAC==='1'){await require('./mac-smoke.cjs').run({win,openEditor,openFiles,views,publicState,app,testDir});return;}
+  if(testMode&&process.env.STUDIO_TEST_MAC==='1'){await require('./mac-smoke.cjs').run({win,openEditor,openFiles,views,publicState,app,testDir,failures});return;}
   if(testMode)await require(process.env.STUDIO_TEST_NETWORK==='1'?'./network-hangul-test.cjs':process.env.STUDIO_TEST_EXPERIENCE==='1'?'./experience-test.cjs':process.env.STUDIO_TEST_AE==='1'?'./ae-test.cjs':process.env.STUDIO_TEST_INSTALLER==='1'?'./installer-test.cjs':process.env.STUDIO_TEST_EXTENDED==='1'?'./extended-test.cjs':process.env.STUDIO_TEST_LOCAL_AI==='1'?'./local-ai-test.cjs':process.env.STUDIO_TEST_PDF_ADVANCED==='1'?'./advanced-pdf-test.cjs':process.env.STUDIO_TEST_ARTCRAFT==='1'?'./artcraft-test.cjs':process.env.STUDIO_TEST_NATIVE==='1'?'./native-smoke.cjs':process.env.STUDIO_TEST_FILES==='1'?'./file-smoke.cjs':'./smoke.cjs').run({win,openEditor,openFiles,queueFiles,home,views,shortcut,testDir,publicState,failures,app,nativeTools});
 }).catch(e=>{console.error(e);app.exit(1);});
 app.on('window-all-closed',()=>app.quit());
