@@ -1,0 +1,58 @@
+[
+  {
+    "path": "tessdata/kor.traineddata",
+    "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/main/kor.traineddata",
+    "license": "Apache-2.0",
+    "bytes": 1677415,
+    "sha256": "6b85e11d9bbf07863b97b3523b1b112844c43e713df8b66418a081fd1060b3b2"
+  },
+  {
+    "path": "tessdata/eng.traineddata",
+    "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/main/eng.traineddata",
+    "license": "Apache-2.0",
+    "bytes": 4113088,
+    "sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2"
+  },
+  {
+    "path": "tessdata/LICENSE",
+    "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/main/LICENSE",
+    "license": "Apache-2.0",
+    "bytes": 11358,
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "path": "fonts/NanumGothic-Regular.ttf",
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/nanumgothic/NanumGothic-Regular.ttf",
+    "license": "OFL-1.1",
+    "bytes": 2054744,
+    "sha256": "76f45ef4a6bcff344c837c95a7dcc26e017e38b5846d5ae0cdcb5b86be2e2d31"
+  },
+  {
+    "path": "fonts/OFL.txt",
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/nanumgothic/OFL.txt",
+    "license": "OFL-1.1",
+    "bytes": 4534,
+    "sha256": "eeacf16032901d0ed0456876ec77b8f0fda6b3fecec7d972f8543eb602e6c30f"
+  },
+  {
+    "path": "m2m100-int8/LICENSE",
+    "url": "https://raw.githubusercontent.com/facebookresearch/fairseq/main/LICENSE",
+    "license": "MIT",
+    "bytes": 1086,
+    "sha256": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85"
+  },
+  {
+    "path": "docling-models/docling-project--docling-models/LICENSE-CDLA.txt",
+    "url": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/CDLA-Permissive-2.0.txt",
+    "license": "CDLA-Permissive-2.0",
+    "bytes": 2354,
+    "sha256": "4531a67d443284d93ffed0803df5b10634aff21c3d77e381f2d48af01d875868"
+  },
+  {
+    "path": "docling-models/docling-project--docling-layout-heron/LICENSE-APACHE.txt",
+    "url": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/Apache-2.0.txt",
+    "license": "Apache-2.0",
+    "bytes": 10280,
+    "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+  }
+]

@@ -1,0 +1,50 @@
+'use strict';
+const connectionDialog=document.getElementById('connections-dialog');
+const el=id=>document.getElementById(id);let connectionState,connectionTimer,connectionWorking=false;
+function connectionMessage(text){el('connection-message').textContent=text;}
+async function connectionCall(action,args){return window.studio.connections(action,args);}
+async function connectionRefresh(){
+  const previous=connectionState;connectionState=await connectionCall('state');const {oauth,helpers,busy}=connectionState;
+  if(previous?.oauth.pending&&!oauth.pending&&!oauth.error){const connected=oauth.accounts.find(a=>a.provider===previous.oauth.pending&&a.connected);if(connected)connectionMessage((connected.provider==='google'?'Google Drive':'ChatGPT')+' connected: '+connected.label+'.');}
+  const status=el('account-list');status.replaceChildren();
+  for(const account of oauth.accounts){const row=document.createElement('p');row.textContent=`${account.provider==='google'?'Google Drive':'ChatGPT'} · ${account.label} · ${account.connected?'Connected':'Disconnected'} `;
+    if(account.connected){const button=document.createElement('button');button.textContent='Disconnect';button.onclick=()=>connectionRun(async()=>{await connectionCall('disconnect',{id:account.id,provider:account.provider});connectionMessage('Disconnected.');});row.append(button);}
+    status.append(row);
+  }
+  for(const [id,name] of [['gemini','Gemini via Google Antigravity'],['claude','Claude']]){const p=document.createElement('p');p.textContent=`${name} · ${helpers[id].issue?'Unavailable for this account':helpers[id].installed?(helpers[id].connected?'Sign-in saved in this app':'Ready to sign in'):'Official helper installation needed'} `;if(helpers[id].connected){const button=document.createElement('button');button.textContent='Disconnect';button.onclick=()=>connectionRun(async()=>{await connectionCall('disconnect',{provider:id});connectionMessage('Disconnected locally. You can also remove access in your provider’s account settings.');});p.append(button);}status.append(p);}
+  if(oauth.pending){const p=document.createElement('p');p.textContent='Complete '+(oauth.pending==='google'?'Google Drive':'ChatGPT')+' sign-in'+(oauth.pendingLoginHint?' for '+oauth.pendingLoginHint:'')+' in the newest browser tab. Keep AE Studio open until the browser says you are connected.';status.append(p);}
+  el('drive-setup-note').textContent=oauth.googleConfigured?'Google Drive app configuration is installed on this computer.':'Drive needs the AE Studio Google app registration before sign-in. Gemini sign-in is independent and does not need this setup.';
+  el('google-connect').disabled=!oauth.googleConfigured||busy||!!oauth.pending;
+  el('google-email').disabled=busy||!!oauth.pending;
+  el('chatgpt-connect').disabled=busy||!!oauth.pending;el('gemini-connect').disabled=busy||!!oauth.pending||!helpers.gemini.installed;el('gemini-install').disabled=busy||!!oauth.pending;el('gemini-install').hidden=false;el('gemini-install').textContent=helpers.gemini.installed?'Check Google helper':'Set up free Google helper';el('claude-connect').disabled=busy||!!oauth.pending||!helpers.claude.installed;
+  for(const [id,provider] of [['chatgpt-account','chatgpt'],['drive-account','google']]){const select=el(id),previous=select.value;select.replaceChildren();for(const account of oauth.accounts.filter(a=>a.provider===provider&&a.connected)){const option=document.createElement('option');option.value=account.id;option.textContent=account.label;select.append(option);}if([...select.options].some(o=>o.value===previous))select.value=previous;}
+  for(const id of ['chatgpt-account','drive-account']){const select=el(id);if(!select.options.length){const option=document.createElement('option');option.value='';option.textContent='Sign in first';select.append(option);select.disabled=true;}else select.disabled=false;}
+  if(!el('assistant-model').options.length){const option=document.createElement('option');option.value='';option.textContent='Load available models first';el('assistant-model').append(option);}
+  el('load-models').disabled=!el('chatgpt-account').value||busy;
+  for(const id of ['drive-list','drive-pick','drive-upload'])el(id).disabled=!el('drive-account').value||busy;
+  const remaining=Number.isFinite(oauth.pendingExpiresAt)?Math.max(0,Math.ceil((oauth.pendingExpiresAt-Date.now())/1000)):null;
+  el('connection-progress').textContent=busy?'Working…':oauth.pending?'Waiting for browser sign-in…'+(remaining===null?'':` ${Math.floor(remaining/60)}:${String(remaining%60).padStart(2,'0')} remaining in AE Studio.`):'';
+  if(oauth.error&&oauth.error!==previous?.oauth.error)connectionMessage(oauth.error);
+  if(helpers.gemini.issue&&helpers.gemini.issue!==previous?.helpers.gemini.issue)connectionMessage(helpers.gemini.issue);
+}
+async function connectionRun(work){if(connectionWorking)return;connectionWorking=true;el('connection-progress').textContent='Working…';try{await work();}catch(e){connectionMessage(e.message||String(e));}finally{connectionWorking=false;await connectionRefresh().catch(()=>{});}}
+el('connections').onclick=async()=>{await window.studio.shellDialog(true);connectionDialog.showModal();await connectionRefresh().catch(e=>connectionMessage(e.message));connectionTimer=setInterval(()=>connectionRefresh().catch(()=>{}),2000);};
+el('close-connections').onclick=()=>connectionDialog.close();connectionDialog.addEventListener('close',()=>{clearInterval(connectionTimer);window.studio.shellDialog(false);});
+el('cancel-connection').onclick=async()=>{await connectionCall('cancel');connectionMessage('Cancellation requested.');await connectionRefresh();};
+for(const [id,provider] of [['chatgpt-connect','chatgpt'],['google-connect','google'],['gemini-connect','gemini'],['claude-connect','claude']])el(id).onclick=()=>connectionRun(async()=>{if(provider==='google'&&!el('google-email').reportValidity())return;connectionMessage('Complete sign-in in your browser.');await connectionCall('connect',{provider,...(provider==='google'?{email:el('google-email').value.trim()}: {})});});
+el('google-config').onclick=()=>connectionRun(async()=>{await connectionCall('google-config');connectionMessage('Google app configuration updated.');});
+document.querySelectorAll('[data-provider-link]').forEach(button=>button.onclick=()=>connectionCall('link',{id:button.dataset.providerLink}).catch(e=>connectionMessage(e.message)));
+el('assistant-provider').onchange=()=>{const chatgpt=el('assistant-provider').value==='chatgpt';el('chatgpt-options').hidden=!chatgpt;el('assistant-model').replaceChildren();};
+el('chatgpt-account').onchange=()=>el('assistant-model').replaceChildren();
+el('drive-account').onchange=()=>{el('drive-files').replaceChildren();connectionMessage('Refresh the file list for the selected Drive account.');};
+el('load-models').onclick=()=>connectionRun(async()=>{const list=await connectionCall('models',{id:el('chatgpt-account').value}),select=el('assistant-model');select.replaceChildren();for(const model of list){const option=document.createElement('option');option.value=model.id;option.textContent=model.name;select.append(option);}connectionMessage(list.length?'Choose a model for this account.':'No models are currently available for this account.');});
+el('ask-assistant').onclick=()=>connectionRun(async()=>{el('assistant-answer').textContent='';const result=await connectionCall('ask',{provider:el('assistant-provider').value,id:el('chatgpt-account').value,model:el('assistant-provider').value==='chatgpt'?el('assistant-model').value:'',prompt:el('assistant-prompt').value});if(result.cancelled)connectionMessage('Prompt cancelled.');else{el('assistant-answer').textContent=result.text;connectionMessage('Answer complete. Copy the text into your document or project.');}});
+el('copy-answer').onclick=async()=>{try{await navigator.clipboard.writeText(el('assistant-answer').textContent);connectionMessage('Answer copied.');}catch{connectionMessage('Select the answer text and press Ctrl+C to copy it.');}};
+el('drive-list').onclick=()=>connectionRun(async()=>{const id=el('drive-account').value,result=await connectionCall('drive-list',{id}),list=el('drive-files');list.replaceChildren();
+  for(const file of result.files){const row=document.createElement('div');row.className='drive-file';const name=document.createElement('span');name.textContent=file.name;const download=document.createElement('button');download.textContent='Download copy';download.onclick=()=>connectionRun(async()=>{const saved=await connectionCall('drive-download',{id,fileId:file.id});connectionMessage(saved.name+' saved locally'+(saved.converted?' as an Office copy.':'.'));const open=document.createElement('button');open.textContent='Open local copy';open.onclick=async()=>{connectionDialog.close();try{await connectionCall('open-download',{id:saved.id});}catch(e){showFailure(e);}};row.append(open);});row.append(name,download);list.append(row);}
+  connectionMessage(result.files.length?(result.more?'Showing the 100 most recently changed accessible files. Pick more files in the browser if needed.':'Showing files you selected for AE Studio or uploaded with it.'):'No accessible files yet. Choose files in the Google browser picker or upload a new copy.');
+});
+el('drive-pick').onclick=()=>connectionRun(async()=>{await connectionCall('connect',{provider:'google',id:el('drive-account').value,pickFiles:true});connectionMessage('Select files in your browser, then refresh this list.');});
+el('drive-upload').onclick=()=>connectionRun(async()=>{const result=await connectionCall('drive-upload',{id:el('drive-account').value});connectionMessage(result.cancelled?'Upload cancelled.':result.name+' uploaded as a new copy.');});
+
+el('gemini-install').onclick=()=>connectionRun(async()=>{connectionMessage('Downloading Google’s free helper and verifying the download. This can take a few minutes.');await connectionCall('gemini-install');connectionMessage('Google helper ready. Sign in with Google for Gemini to continue.');});

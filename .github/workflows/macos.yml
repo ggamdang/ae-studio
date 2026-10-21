@@ -35,3 +35,29 @@ jobs:
             macos/checks/
           retention-days: 3
           if-no-files-found: error
+  companion:
+    if: github.event.repository.private == false
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Stage native editors
+        run: python3 macos/stage_native.py
+      - name: Build Mac companion and offline document runtimes
+        run: python3 macos/build_companion.py
+      - name: Test Mac companion
+        run: python3 macos/test_companion.py
+      - name: Save build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac-companion-verification
+          path: |
+            macos/checks/
+            macos/build/runtime-downloads.json
+            macos/build/*-resolved-lock.txt
+          retention-days: 3
+          if-no-files-found: warn

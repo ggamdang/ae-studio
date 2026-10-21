@@ -1,0 +1,867 @@
+--- a/frontend/libs/components/pagedraw/src/lib/PageDraw.tsx
++++ b/frontend/libs/components/pagedraw/src/lib/PageDraw.tsx
+@@ -739,6 +739,8 @@
+     const uuid = crypto.randomUUID();
+     return new File([blob], `${uuid}.png`, { type: "image/png" });
+   }, []);
++
++  useEffect(() => { (window as any).__artcraftCanvasExport = getCompositeCanvasFile; return () => { delete (window as any).__artcraftCanvasExport; }; }, [getCompositeCanvasFile]);
+ 
+   // Pre-bake the composite File on idle so the Generate click path is
+   // near-instant in the common case (user pauses >300ms before clicking). The
+--- a/frontend/libs/components/pagedraw/src/lib/PageDraw.tsx
++++ b/frontend/libs/components/pagedraw/src/lib/PageDraw.tsx
+@@ -1300,7 +1300,7 @@
+         onPaintBrush={handlePaintBrush}
+         onCanvasBackground={handleCanvasBackground}
+         onUploadImage={handleUploadImageClick}
+-        supportsMaskTool={supportsMaskedInpainting}
++        supportsMaskTool={true}
+         activeToolId={activeTool}
+         currentShape={currentShape}
+       />
+@@ -1347,7 +1347,7 @@
+             stageRef={stageRef}
+             transformerRefs={transformerRefs}
+             baseImageRef={baseImageKonvaRef}
+-            showMaskLayer={supportsMaskedInpainting}
++            showMaskLayer={true}
+             fillParentHeight={fillParentHeight}
+           />
+         </ContextMenuContainer>
+--- a/frontend/libs/components/pagedraw/src/lib/PageDraw.tsx
++++ b/frontend/libs/components/pagedraw/src/lib/PageDraw.tsx
+@@ -1265,35 +1265,7 @@
+           the content area (right of the sidebar). It spans 0..right so the
+           promptbox's own `left-1/2 -translate-x-1/2` centers within the content
+           area — do NOT re-apply the sidebar offset or it double-shifts right. */}
+-      <div
+-        className={`preserve-aspect-ratio fixed inset-x-0 bottom-0 z-10 ${
+-          isSelecting ? "pointer-events-none" : "pointer-events-auto"
+-        }`}
+-      >
+-        <PromptEditor
+-          onAspectRatioChange={handleAspectRatioChange}
+-          usePrompt2DStore={promptStoreProvider}
+-          EncodeImageBitmapToBase64={EncodeImageBitmapToBase64}
+-          onGenerateClick={handleGenerate}
+-          onFitPressed={onFitPressed}
+-          isDisabled={!baseImageBitmap && !baseImageInfo?.isBlankCanvas}
+-          isEnqueueing={isGenerating}
+-          generationCount={generationCount}
+-          onGenerationCountChange={setGenerationCount}
+-          selectedImageModel={selectedImageModel}
+-          selectedProvider={selectedProvider}
+-          uploadImage={adapter.uploadImage}
+-          modelSelector={
+-            <ClassyModelSelector
+-              variant="embedded"
+-              items={canvas2dModelList}
+-              page={PAGE_ID}
+-              showProviderSelection={false}
+-            />
+-          }
+-        />
+-      </div>
+-      <SideToolbar
++<SideToolbar
+         className="fixed left-0 top-[calc(50%_-_var(--pd-bottom-reserve,0px))] z-10 -translate-y-1/2 transform"
+         onSelect={handleSelectTool}
+         onActivateShapeTool={handleActivateShapeTool}
+--- a/frontend/libs/components/pagedraw/src/lib/stores/SceneState.ts
++++ b/frontend/libs/components/pagedraw/src/lib/stores/SceneState.ts
+@@ -1295,11 +1295,11 @@
+       (n) => nodeIds.includes(n.id) && n instanceof Node && (n as Node).type === "image",
+     ) as Node | undefined;
+ 
+-    if (!firstNode || !firstNode.imageFile) {
++    if (!firstNode || (!firstNode.imageFile && !firstNode.imageUrl)) {
+       return null;
+     }
+     try {
+-      const base64Image = await convertFileToBase64(firstNode.imageFile);
++      const base64Image = firstNode.imageUrl ? firstNode.imageUrl : await convertFileToBase64(firstNode.imageFile!);
+       return { base64: base64Image, nodeId: firstNode.id };
+     } catch (error) {
+       console.error("Error preparing background removal:", error);
+@@ -1319,7 +1319,7 @@
+       (n) => n.id === nodeId && n instanceof Node && (n as Node).type === "image",
+     ) as Node | undefined;
+ 
+-    if (!firstNode || !firstNode.imageFile) {
++    if (!firstNode || (!firstNode.imageFile && !firstNode.imageUrl)) {
+       return;
+     }
+     try {
+--- a/frontend/libs/components/pagescene/src/lib/signals/demoAssets/demoCharacterItems.ts
++++ b/frontend/libs/components/pagescene/src/lib/signals/demoAssets/demoCharacterItems.ts
+@@ -1,98 +1,3 @@
+-import type { MediaItem } from "../../models/assets";
+-import { AssetType } from "../../enums";
+-
+-export const demoCharacterItems: MediaItem[] = [
+-  {
+-    version: 1,
+-    media_id: "m_gff67btr810vg3ng9szj85zskztcgy",
+-    type: AssetType.CHARACTER,
+-    name: "Story Girl",
+-    thumbnail: "/resources/characters/img13.png",
+-    maybe_animation_type: "mixamo_ar_kit",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_ja13tz27cqqvy366tsed4z4kh4gg0m",
+-    type: AssetType.CHARACTER,
+-    name: "Roko",
+-    thumbnail: "/resources/characters/roko.png",
+-    media_type: "glb",
+-  },
+-];
+-
+-// TODO: CHANGE TO THIS FOR DEV MODE:
+-export const devCharacterItems: MediaItem[] = [
+-  {
+-    version: 1,
+-    media_id: "m_r7w1tmkx2jg8nznr3hyzj4k6zhfh7d ",
+-    type: AssetType.CHARACTER,
+-    name: "Female Doll",
+-    thumbnail: "/resources/characters/img03.png",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_9sqg0evpr23587jnr8z3zsvav1x077 ",
+-    type: AssetType.CHARACTER,
+-    name: "Male Doll",
+-    thumbnail: "/resources/characters/img07.png",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_fmxy8wjnep1hdaz7qdg4n7y15d2bsp",
+-    type: AssetType.CHARACTER,
+-    name: "Shrek",
+-    thumbnail: "/resources/placeholders/placeholder.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_9f3d3z94kk6m25zywyz6an3p43fjtw",
+-    type: AssetType.CHARACTER,
+-    name: "Stick Man",
+-    thumbnail: "/resources/placeholders/placeholder.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_r7w1tmkx2jg8nznr3hyzj4k6zhfh7d ",
+-    type: AssetType.CHARACTER,
+-    name: "Female Doll",
+-    thumbnail: "/resources/characters/img03.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_9sqg0evpr23587jnr8z3zsvav1x077 ",
+-    type: AssetType.CHARACTER,
+-    name: "Male Doll",
+-    thumbnail: "/resources/characters/img03.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_pwtk45wsfr5z2bavmwxh2efnwvh4rr ",
+-    type: AssetType.CHARACTER,
+-    name: "Story Girl",
+-    thumbnail: "/resources/characters/img13.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_ffhbh6zgjhxxgeg1r3tsj2kqrqqana",
+-    type: AssetType.CHARACTER,
+-    name: "Waifu H",
+-    thumbnail: "/resources/characters/img14.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_qfqw9e5kz0b7kspbwcc3c9y7pym97q",
+-    type: AssetType.CHARACTER,
+-    name: "Skibidi Toilet",
+-    thumbnail: "/resources/characters/img15.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_ecfxa94v4ftvh58hv7se3qqy8a385n",
+-    type: AssetType.CHARACTER,
+-    name: "Pop",
+-    thumbnail: "/resources/placeholders/placeholder.png",
+-  },
+-];
++import {AssetType} from "../../enums";
++export const demoCharacterItems = [{version:1,media_id:"studio-mannequin",type:AssetType.CHARACTER,name:"Studio mannequin",thumbnail:"/local-assets/mannequin.svg",media_type:"glb"}];
++export const devCharacterItems = demoCharacterItems;
+--- a/frontend/libs/components/pagescene/src/lib/signals/demoAssets/demoAnimationItems.ts
++++ b/frontend/libs/components/pagescene/src/lib/signals/demoAssets/demoAnimationItems.ts
+@@ -1,341 +1 @@
+-import { AssetType } from "../../enums";
+-import type { MediaItem } from "../../models/assets";
+-
+-export const demoAnimationItems: MediaItem[] = [
+-  {
+-    version: 1,
+-    media_id: "m_yzreg1494d08aepezj74607d2ascep",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Sit",
+-    thumbnail: "/resources/characters/img04.png",
+-    isMine: true,
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_qepzjytd4ahd5askdt2ngrwzj2aa3f",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Idle",
+-    thumbnail: "/resources/characters/img07.png",
+-    isBookmarked: true,
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_s7d4ems68sb2vqj4pdje1rc15q3ycp",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Walk",
+-    thumbnail: "/resources/characters/img07.png",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_v06h821hj4dvst0mzm575jdka31f41",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Punch",
+-    thumbnail: "/resources/characters/img08.png",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_q92keqa05gds69zyd8mkep7z9338t8",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Jump",
+-    thumbnail: "/resources/characters/img06.png",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_0qmgsyxh5ng9c9ac3m0snzdqqs5q60",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Dance",
+-    thumbnail: "/resources/characters/img11.png",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_4ydax69ystd9tzq8m714jrdqcc6nvw",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Jump Forward",
+-    thumbnail: "/resources/characters_gif/Jump Forward.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_rhscc6zrt9sftpwvx2xyf965a5mh4p",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Tonic Seizure",
+-    thumbnail: "/resources/characters_gif/Tonic Seizure.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_xd30y703zeqke26j7v9qh5cnzwn0h9",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Ginga Variation 3",
+-    thumbnail: "/resources/characters_gif/Ginga Variation 3.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_jggmpzjvy68pyt8v4n3nxqfy80kqbg",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Texting",
+-    thumbnail: "/resources/characters_gif/Texting.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_xezj4qpe5mav3gv4vbfjksvhctb365",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Pushing",
+-    thumbnail: "/resources/characters_gif/Pushing.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_4fyxtbk4fxz312cc6y4bs5y739x4dc",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Texting While Standing",
+-    thumbnail: "/resources/characters_gif/Texting While Standing.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_zxdethnpahecz2v0nj0k4xjehdb3ne",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Getting Bit",
+-    thumbnail: "/resources/characters_gif/Getting Bit.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_m27a9jwh96xe270pgxcjwg88c0a01j",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Twist Dance",
+-    thumbnail: "/resources/characters_gif/Twist Dance.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_9ejtr55r3s84gpek5wxn1v4apcjff7",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Peek Around Corner",
+-    thumbnail: "/resources/characters_gif/Femme Peek Around Corner.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_1cvqm136nsjgnkzst9rc4w5rgfefxj",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Sword And Shield Casting",
+-    thumbnail: "/resources/characters_gif/Sword And Shield Casting.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_hndk99w0knxmxvm23vshyybwace9hx",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Breakdance Ready",
+-    thumbnail: "/resources/characters_gif/Breakdance Ready.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_30ak4bj738gs8eax3bz8b7nyg55x4d",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Sitting Yell",
+-    thumbnail: "/resources/characters_gif/Sitting Yell.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_hj31108d09zsvsv2r8rbb3j9vkas06",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Uppercut",
+-    thumbnail: "/resources/characters_gif/Uppercut.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_fzsrqv5bcyk4fq6ewx93sztbxgcnf2",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Breakdance Uprock Var 1",
+-    thumbnail: "/resources/characters_gif/Breakdance Uprock Var 1.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_8bsmytdf4ak7kazkj78sfexpx6wvwy",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Standard Walk",
+-    thumbnail: "/resources/characters_gif/Standard Walk.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_hw99268jayaw8nxy7nf9hvn4ep88xb",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Sword And Shield Jump",
+-    thumbnail: "/resources/characters_gif/Sword And Shield Jump.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_3rrqez1yb8efm7wne4m9kbaeda1270",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Baseball Bunt",
+-    thumbnail: "/resources/characters_gif/Baseball Bunt.webp",
+-    media_type: "glb",
+-  },
+-
+-  {
+-    version: 1,
+-    media_id: "m_19cz9a2wdgbpn99tx9gdtw3t7t1k6h",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Sneaking Forward",
+-    thumbnail: "/resources/characters_gif/Sneaking Forward.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_0sm2ycm3napvsqhgbm06nkv6x48vqj",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Right Strafe Walking",
+-    thumbnail: "/resources/characters_gif/Right Strafe Walking.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_xvq7ybyjmwsebhxw31kxn5v0pksjvf",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Laying Breathless",
+-    thumbnail: "/resources/characters_gif/Laying Breathless.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_vrwzar5kwm2p1crtcxvxqmpxv7dt9x",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Orc Walk",
+-    thumbnail: "/resources/characters_gif/Orc Walk.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_f6zvavya6n9zdkhd4nzh5s9wj39zwn",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Run Look Back",
+-    thumbnail: "/resources/characters_gif/Run Look Back.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_p3fzg4p0d46xwq2qk0chrvmht4xx9v",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Lengthy Head Nod",
+-    thumbnail: "/resources/characters_gif/Lengthy Head Nod.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_aazz0c3e1ygdawhny6vxm9yyw0t00d",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Right Hook",
+-    thumbnail: "/resources/characters_gif/Right Hook.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_1c7enn6wzsb44qw26azpb9ewecmja8",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Great Sword Impact",
+-    thumbnail: "/resources/characters_gif/Great Sword Impact.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_xy9p9x6bnq0nc4tb7ajb7hh91hk1ec",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Zombie Biting",
+-    thumbnail: "/resources/characters_gif/Zombie Biting.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_7e2gmcwy1t6bbkwetn1ad7fmtg15ek",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Leaning",
+-    thumbnail: "/resources/characters_gif/Leaning.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_3dkcn3c1j160xvbe1haqprmsb566qg",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Corkscrew Evade",
+-    thumbnail: "/resources/characters_gif/Corkscrew Evade.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_x8kndshp2psy8cx7r4z13m3hkp7t1t",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Catwalk Walk Forward Crossed",
+-    thumbnail: "/resources/characters_gif/Catwalk Walk Forward Crossed.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_zhp9kzjwq1ek1618kzk88a0c7nv4y4",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Look Around",
+-    thumbnail: "/resources/characters_gif/Look Around.webp",
+-    media_type: "glb",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_b1vkd8hj22mnhgsxx00vg8aha8pxda",
+-    type: AssetType.ANIMATION,
+-    length: 100,
+-    name: "Convulsing",
+-    thumbnail: "/resources/characters_gif/Convulsing.webp",
+-    media_type: "glb",
+-  },
+-];
++export const demoAnimationItems = [];
+--- a/frontend/libs/components/pagescene/src/lib/signals/demoAssets/demoMemeItems.ts
++++ b/frontend/libs/components/pagescene/src/lib/signals/demoAssets/demoMemeItems.ts
+@@ -1,53 +1 @@
+-import type { MediaItem } from "../../models/assets";
+-import { AssetType } from "../../enums";
+-
+-export const demoMemeItems: MediaItem[] = [
+-  {
+-    version: 1,
+-    media_id: "m_yb02j1b0dn6ashn14ap2e2vnvy1jhz",
+-    media_type: "glb",
+-    type: AssetType.CHARACTER,
+-    name: "Toothless",
+-    thumbnail: "/resources/memes/toothless.jpg",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_jgrzn7f66dvvw90qqttjn3m0dk8gef",
+-    media_type: "glb",
+-    type: AssetType.CHARACTER,
+-    name: "Doge",
+-    thumbnail: "/resources/memes/doge.jpg",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_h8gk5m59252nbza07p08dyn1fnhnsf",
+-    media_type: "glb",
+-    type: AssetType.CHARACTER,
+-    name: "Grimace",
+-    thumbnail: "/resources/memes/grimace.jpg",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_pzjn9583k1hqcetcfv1a2y04hkaspq",
+-    media_type: "glb",
+-    type: AssetType.CHARACTER,
+-    name: "Roblox",
+-    thumbnail: "/resources/memes/roblox.jpg",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_xh0aj0wmdhvyf0pv5jj1wj3ap7p1rf",
+-    media_type: "glb",
+-    type: AssetType.CHARACTER,
+-    name: "JD Vance",
+-    thumbnail: "/resources/memes/jd_vance.jpg",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_v8mkb44wy4r1ed7g5z8bq8n6bynerg",
+-    media_type: "glb",
+-    type: AssetType.CHARACTER,
+-    name: "Lil JD",
+-    thumbnail: "/resources/memes/lil_jd.jpg",
+-  },
+-];
++export const demoMemeItems = [];
+--- a/frontend/libs/components/pagescene/src/lib/signals/demoAssets/demoAssets.ts
++++ b/frontend/libs/components/pagescene/src/lib/signals/demoAssets/demoAssets.ts
+@@ -1,36 +1,7 @@
+ import type { MediaItem } from "../../models/assets";
+ import { AssetType } from "../../enums";
+ 
+-export const demoObjectItems: MediaItem[] = [
+-  {
+-    version: 1,
+-    media_id: "m_0xfrmekc56satjxn66wt6c9dkw7dxe",
+-    type: AssetType.OBJECT,
+-    name: "Pikachu Statue",
+-    thumbnail: "/resources/placeholders/placeholder.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_4d2s2q1xy9m1xncppr3gf9ne6bm2m0",
+-    type: AssetType.OBJECT,
+-    name: "Moon",
+-    thumbnail: "/resources/objects/moon.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_t0s6gbvfp78rvc0sd6129za41crr9d",
+-    type: AssetType.OBJECT,
+-    name: "Crown",
+-    thumbnail: "/resources/objects/crown.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "m_zp0zykww0k7ka2zagg3q3pb9t123k4",
+-    type: AssetType.OBJECT,
+-    name: "Sakura Tree",
+-    thumbnail: "/resources/objects/sakura.png",
+-  },
+-];
++export const demoObjectItems: MediaItem[] = [];
+ 
+ export const demoShapeItems: MediaItem[] = [
+   {
+--- a/frontend/libs/components/pagescene/src/lib/signals/demoAssets/demoSkyboxItems.ts
++++ b/frontend/libs/components/pagescene/src/lib/signals/demoAssets/demoSkyboxItems.ts
+@@ -1,41 +1,2 @@
+-import type { MediaItem } from "../../models/assets";
+-import { AssetType } from "../../enums";
+-
+-export const demoSkyboxItems: MediaItem[] = [
+-  {
+-    version: 1,
+-    media_id: "SKY::m_1",
+-    type: AssetType.SKYBOX,
+-    name: "Empty Skybox",
+-    thumbnail: "/resources/placeholders/placeholder.png",
+-  },
+-  {
+-    version: 1,
+-    media_id: "SKY::Default",
+-    type: AssetType.SKYBOX,
+-    name: "Day Skybox",
+-    thumbnail: "/resources/skybox/day/px.webp",
+-  },
+-  {
+-    version: 1,
+-    media_id: "SKY::m_0",
+-    type: AssetType.SKYBOX,
+-    name: "Night Skybox",
+-    thumbnail: "/resources/skybox/night/Night_Moon_Burst_Cam_2_LeftX.webp",
+-  },
+-  {
+-    version: 1,
+-    media_id: "SKY::m_3",
+-    type: AssetType.SKYBOX,
+-    name: "Gray Skybox",
+-    thumbnail:
+-      "/resources/skybox/gray/Sky_AllSky_Overcast4_Low_Cam_2_LeftX.webp",
+-  },
+-  {
+-    version: 1,
+-    media_id: "SKY::m_2",
+-    type: AssetType.SKYBOX,
+-    name: "Black Skybox",
+-    thumbnail: "/resources/skybox/black.jpg",
+-  },
+-];
++import {AssetType} from "../../enums";
++export const demoSkyboxItems = [{version:1,media_id:"SKY::m_1",type:AssetType.SKYBOX,name:"Studio gray",thumbnail:"/local-assets/gray.svg"},{version:1,media_id:"SKY::m_2",type:AssetType.SKYBOX,name:"Black",thumbnail:"/local-assets/black.svg"}];
+--- a/frontend/libs/components/pagescene/src/lib/engine/scene.ts
++++ b/frontend/libs/components/pagescene/src/lib/engine/scene.ts
+@@ -1191,27 +1191,13 @@
+     }
+ 
+     if (this.skybox == "Default") {
+-      const texture = loader.load([
+-        "/resources/skybox/day/px.webp",
+-        "/resources/skybox/day/nx.webp",
+-        "/resources/skybox/day/py.webp",
+-        "/resources/skybox/day/ny.webp",
+-        "/resources/skybox/day/pz.webp",
+-        "/resources/skybox/day/nz.webp",
+-      ]);
++      const texture = new THREE.Color("#282828");
+       this.scene.background = texture;
+       if (this.ambientLight) this.scene.remove(this.ambientLight);
+       if (this.directional_light) this.scene.add(this.directional_light);
+       if (this.hemisphereLight) this.scene.add(this.hemisphereLight);
+     } else if (this.skybox == "m_0") {
+-      const texture = loader.load([
+-        "/resources/skybox/night/Night_Moon_Burst_Cam_2_LeftX.webp",
+-        "/resources/skybox/night/Night_Moon_Burst_Cam_3_Right-X.webp",
+-        "/resources/skybox/night/Night_Moon_Burst_Cam_4_UpY.webp",
+-        "/resources/skybox/night/Night_Moon_Burst_Cam_5_Down-Y.webp",
+-        "/resources/skybox/night/Night_Moon_Burst_Cam_0_FrontZ.webp",
+-        "/resources/skybox/night/Night_Moon_Burst_Cam_1_Back-Z.webp",
+-      ]);
++      const texture = new THREE.Color("#282828");
+       this.scene.background = texture;
+       if (this.ambientLight) this.scene.remove(this.ambientLight);
+       if (this.directional_light) this.scene.add(this.directional_light);
+@@ -1228,14 +1214,7 @@
+       if (this.directional_light) this.scene.remove(this.directional_light);
+       if (this.hemisphereLight) this.scene.remove(this.hemisphereLight);
+     } else if (this.skybox == "m_3") {
+-      const texture = loader.load([
+-        "/resources/skybox/gray/Sky_AllSky_Overcast4_Low_Cam_2_LeftX.webp",
+-        "/resources/skybox/gray/Sky_AllSky_Overcast4_Low_Cam_3_Right-X.webp",
+-        "/resources/skybox/gray/Sky_AllSky_Overcast4_Low_Cam_4_UpY.webp",
+-        "/resources/skybox/gray/Sky_AllSky_Overcast4_Low_Cam_5_Down-Y.webp",
+-        "/resources/skybox/gray/Sky_AllSky_Overcast4_Low_Cam_0_FrontZ.webp",
+-        "/resources/skybox/gray/Sky_AllSky_Overcast4_Low_Cam_1_Back-Z.webp",
+-      ]);
++      const texture = new THREE.Color("#282828");
+       this.scene.background = texture;
+       if (this.ambientLight) this.scene.remove(this.ambientLight);
+       if (this.directional_light) this.scene.add(this.directional_light);
+--- a/frontend/libs/components/pagescene/src/lib/engine/KinHelpers/BoneJSONHelper.ts
++++ b/frontend/libs/components/pagescene/src/lib/engine/KinHelpers/BoneJSONHelper.ts
+@@ -1,76 +1,40 @@
+-import { Object3D, ObjectLoader } from "three";
+-
++// Local pose persistence for imported rigs. The old ArtCraft pose format remains readable.
++import {Object3D, ObjectLoader} from 'three';
+ export class BoneJSONHelper {
+-
+-  model: Object3D;
+-
+-  constructor(model: Object3D) {
+-    this.model = model;
++  constructor(public model:Object3D) {}
++  private findHipBone(nodes:Object3D[]):Object3D|undefined {
++    for(const node of nodes) {
++      if(node.type==='Bone' && node.name.toLowerCase().includes('mixamorighips')) return node;
++      const found=this.findHipBone(node.children); if(found) return found;
++    }
++    return undefined;
+   }
+-
+-  private findHipBone(objectGroup: Object3D[]): Object3D | undefined {
+-    let hipBone = undefined;
+-    for (const child of objectGroup) {
+-      if (child.type === "Bone" && child.name.toLowerCase().includes("mixamorighips")) {
+-        hipBone = child;
+-        break;
++  public toJSON():any {
++    if(!this.model.userData.isCharacter) return undefined;
++    const bones:any[]=[];
++    const visit=(node:Object3D,path:number[])=>{
++      if(node.type==='Bone') bones.push({path,name:node.name,position:node.position.toArray(),quaternion:node.quaternion.toArray(),scale:node.scale.toArray()});
++      node.children.forEach((child,index)=>visit(child,[...path,index]));
++    };
++    visit(this.model,[]);
++    return {format:'unified-bone-pose',version:1,bones};
++  }
++  private applyBoneTree(target:Object3D,source:Object3D):void {
++    target.position.copy(source.position);target.quaternion.copy(source.quaternion);target.scale.copy(source.scale);
++    target.children.forEach((child,index)=>{if(source.children[index])this.applyBoneTree(child,source.children[index]);});
++  }
++  public poseFromBoneJSON(pose:any):void {
++    if(pose?.format==='unified-bone-pose') {
++      if(pose.version!==1 || !Array.isArray(pose.bones) || pose.bones.length>10000)throw new Error('Invalid local bone pose');
++      const vector=(v:any,n:number)=>Array.isArray(v)&&v.length===n&&v.every((x:any)=>typeof x==='number'&&Number.isFinite(x));
++      for(const bone of pose.bones) {
++        if(!Array.isArray(bone.path)||bone.path.length>100||!bone.path.every((x:any)=>Number.isInteger(x)&&x>=0)||!vector(bone.position,3)||!vector(bone.quaternion,4)||!vector(bone.scale,3))throw new Error('Invalid bone transform');
++        let target:Object3D|undefined=this.model;
++        for(const index of bone.path)target=target?.children[index];
++        if(target?.type==='Bone'){target.position.fromArray(bone.position);target.quaternion.fromArray(bone.quaternion);target.scale.fromArray(bone.scale);}
+       }
+-    }
+-
+-    return hipBone;
+-  }
+-
+-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+-  public toJSON(): any {
+-    if (!this.model.userData.isCharacter) {
+       return;
+     }
+-
+-    if (this.model.children.length < 1) {
+-      return undefined;
+-    }
+-
+-    // Find the hip bone
+-    const hipBone = this.findHipBone(this.model.children[0].children);
+-
+-    if (!hipBone) {
+-      console.error("No hip bone found in the model.");
+-      return undefined;
+-    }
+-
+-    return hipBone.toJSON();
++    const hip=this.findHipBone(this.model.children);if(hip)this.applyBoneTree(hip,new ObjectLoader().parse(pose));
+   }
+-
+-  /* Applies the bone tree in a recursive BFS manner */
+-  private applyBoneTree(hipBone: Object3D, boneTree: Object3D): void {
+-    hipBone.position.copy(boneTree.position);
+-    hipBone.quaternion.copy(boneTree.quaternion);
+-    hipBone.scale.copy(boneTree.scale);
+-
+-    const hipChildren = hipBone.children;
+-    const treeChildren = boneTree.children;
+-
+-    // NOTE: Assumption made that the lengths match!
+-    // This shouldn't be a problem unless the skeletal model is changed
+-    for (let i = 0; i < hipChildren.length; i++) {
+-      const hipChild = hipChildren[i];
+-      const treeChild = treeChildren[i];
+-      if (hipChild && treeChild) {
+-        this.applyBoneTree(hipChild, treeChild);
+-      }
+-    }
+-  }
+-
+-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+-  public poseFromBoneJSON(boneJSON: any): void {
+-    const hipBone = this.findHipBone(this.model.children[0].children);
+-    if (!hipBone) {
+-      return;
+-    }
+-
+-    const loader = new ObjectLoader();
+-    const boneTree = loader.parse(boneJSON);
+-    this.applyBoneTree(hipBone, boneTree);
+-  }
+-
+ }
+--- a/frontend/libs/components/pagescene/src/lib/proxy/storyteller_proxy_scene.ts
++++ b/frontend/libs/components/pagescene/src/lib/proxy/storyteller_proxy_scene.ts
+@@ -138,7 +138,7 @@
+     // sequential chain.
+     const mediaTokens = scene_json
+       .map((j) => j.media_file_token)
+-      .filter((t) => t.startsWith("m_"));
++      .filter((t) => (t.startsWith("m_") || t.startsWith("local-") || t === "studio-mannequin"));
+     if (mediaTokens.length > 0) {
+       await this.scene.warmMediaURLs(mediaTokens);
+     }
+@@ -184,7 +184,7 @@
+         if (token === "DirectionalLight") {
+           return { json_object, obj: this.scene._create_base_lighting() };
+         }
+-        if (token.includes("m_")) {
++        if ((token.includes("m_") || token.startsWith("local-") || token === "studio-mannequin")) {
+           const obj = await this.scene.loadObject(
+             token,
+             json_object.object_name,

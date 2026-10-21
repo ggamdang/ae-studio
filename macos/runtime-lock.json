@@ -1,0 +1,26 @@
+{
+  "python": {
+    "url": "https://github.com/astral-sh/python-build-standalone/releases/download/20261020/cpython-3.12.15%2B20261020-aarch64-apple-darwin-install_only.tar.gz",
+    "sha256": "921fc822416bbad146b026d2051dbfe08338ce4144ced64c56afd899a4351752"
+  },
+  "office": {
+    "url": "https://download.documentfoundation.org/libreoffice/stable/26.8.1/mac/aarch64/LibreOffice_26.8.1_MacOS_aarch64.dmg",
+    "sha256": "ca074e0b13571efb30a31fc531c5f95e997030637325e5d5de92d67aefdf0dfc"
+  },
+  "hangul": {
+    "url": "https://github.com/STAIxBWLB/hwp-cli/releases/download/v1.3.1/hwp-v1.3.1-aarch64-apple-darwin.tar.gz",
+    "sha256": "60da60c55050aa9d72e74c0fe6bfc9b4ead9e3732cfb794cf0355ef8331926e4"
+  },
+  "java": {
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jre_aarch64_mac_hotspot_17.0.20.1_1.tar.gz",
+    "sha256": "190480874ccceb358cbc840393207f77ac3e63a4c5f8129d0e23e9518b96ad05"
+  },
+  "verapdf": {
+    "url": "https://software.verapdf.org/releases/1.28/verapdf-greenfield-1.28.2-installer.zip",
+    "sha256": "d1693a5f0bf0997180f6d97e8a5568b0cf39e27eee338d439c8adb58435c1e89"
+  },
+  "mupdf-source": {
+    "url": "https://mupdf.com/downloads/archive/mupdf-1.27.2-source.tar.gz",
+    "sha256": "553867b135303dc4c25ab67c5f234d8e900a0e36e66e8484d99adc05fe1e8737"
+  }
+}

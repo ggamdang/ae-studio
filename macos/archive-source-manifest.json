@@ -1,0 +1,797 @@
+[
+  {
+    "file": "sources/aiohappyeyeballs-2.7.1.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/ce/f4/eec0465c2f67b2664688d0240b3212d5196fd89e741df67ddb81f8d35658/aiohappyeyeballs-2.7.1.tar.gz",
+    "sha256": "065665c041c42a5938ed220bdcd7230f22527fbec085e1853d2402c8a3615d9d",
+    "bytes": 24757,
+    "component": "aiohappyeyeballs",
+    "version": "2.7.1",
+    "ecosystem": "python",
+    "license": "PSF-2.0",
+    "homepage": null,
+    "projectUrls": {
+      "Bug Tracker": "https://github.com/aio-libs/aiohappyeyeballs/issues",
+      "Changelog": "https://github.com/aio-libs/aiohappyeyeballs/blob/main/CHANGELOG.md",
+      "Documentation": "https://aiohappyeyeballs.readthedocs.io",
+      "Repository": "https://github.com/aio-libs/aiohappyeyeballs"
+    }
+  },
+  {
+    "file": "sources/aiohttp-3.14.5.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/6c/4c/bdccd81e9ee225b69c60e7766c9a5b05364f118f4d383713b89a682d772d/aiohttp-3.14.5.tar.gz",
+    "sha256": "5558a7f5a05af9ecf744af91e5baefc436f93c9333e656c27ec253f9a6bbe178",
+    "bytes": 8078052,
+    "component": "aiohttp",
+    "version": "3.14.5",
+    "ecosystem": "python",
+    "license": "Apache-2.0 AND MIT",
+    "homepage": null,
+    "projectUrls": {
+      "CI: GitHub Actions": "https://github.com/aio-libs/aiohttp/actions?query=workflow%3ACI",
+      "Chat: Matrix": "https://matrix.to/#/#aio-libs:matrix.org",
+      "Chat: Matrix Space": "https://matrix.to/#/#aio-libs-space:matrix.org",
+      "Coverage: codecov": "https://codecov.io/github/aio-libs/aiohttp",
+      "Docs: Changelog": "https://docs.aiohttp.org/en/stable/changes.html",
+      "Docs: RTD": "https://docs.aiohttp.org",
+      "GitHub: issues": "https://github.com/aio-libs/aiohttp/issues",
+      "GitHub: repo": "https://github.com/aio-libs/aiohttp",
+      "Homepage": "https://github.com/aio-libs/aiohttp"
+    }
+  },
+  {
+    "file": "sources/aiosignal-1.4.0.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/61/62/06741b579156360248d1ec624842ad0edf697050bbaf7c3e46394e106ad1/aiosignal-1.4.0.tar.gz",
+    "sha256": "f47eecd9468083c2029cc99945502cb7708b082c232f9aca65da147157b251c7",
+    "bytes": 25007,
+    "component": "aiosignal",
+    "version": "1.4.0",
+    "ecosystem": "python",
+    "license": "Apache 2.0",
+    "homepage": "https://github.com/aio-libs/aiosignal",
+    "projectUrls": {
+      "CI: GitHub Actions": "https://github.com/aio-libs/aiosignal/actions",
+      "Chat: Gitter": "https://gitter.im/aio-libs/Lobby",
+      "Coverage: codecov": "https://codecov.io/github/aio-libs/aiosignal",
+      "Docs: RTD": "https://docs.aiosignal.org",
+      "GitHub: issues": "https://github.com/aio-libs/aiosignal/issues",
+      "GitHub: repo": "https://github.com/aio-libs/aiosignal",
+      "Homepage": "https://github.com/aio-libs/aiosignal"
+    }
+  },
+  {
+    "file": "sources/asn1crypto-1.5.1.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/de/cf/d547feed25b5244fcb9392e288ff9fdc3280b10260362fc45d37a798a6ee/asn1crypto-1.5.1.tar.gz",
+    "sha256": "13ae38502be632115abf8a24cbe5f4da52e3b5231990aff31123c805306ccb9c",
+    "bytes": 121080,
+    "component": "asn1crypto",
+    "version": "1.5.1",
+    "ecosystem": "python",
+    "license": "MIT",
+    "homepage": "https://github.com/wbond/asn1crypto",
+    "projectUrls": {
+      "Homepage": "https://github.com/wbond/asn1crypto"
+    }
+  },
+  {
+    "file": "sources/attrs-26.1.0.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/9a/8e/82a0fe20a541c03148528be8cac2408564a6c9a0cc7e9171802bc1d26985/attrs-26.1.0.tar.gz",
+    "sha256": "d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32",
+    "bytes": 952055,
+    "component": "attrs",
+    "version": "26.1.0",
+    "ecosystem": "python",
+    "license": "MIT",
+    "homepage": null,
+    "projectUrls": {
+      "Changelog": "https://www.attrs.org/en/stable/changelog.html",
+      "Documentation": "https://www.attrs.org/",
+      "Funding": "https://github.com/sponsors/hynek",
+      "GitHub": "https://github.com/python-attrs/attrs",
+      "Tidelift": "https://tidelift.com/subscription/pkg/pypi-attrs?utm_source=pypi-attrs&utm_medium=pypi"
+    }
+  },
+  {
+    "file": "sources/certifi-2026.7.22.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/a3/c2/24167ea9858356b47a87a50d39908bfdb72ceeefe0041586e704e5376b3a/certifi-2026.7.22.tar.gz",
+    "sha256": "741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55",
+    "bytes": 138112,
+    "component": "certifi",
+    "version": "2026.7.22",
+    "ecosystem": "python",
+    "license": "MPL-2.0",
+    "homepage": "https://github.com/certifi/python-certifi",
+    "projectUrls": {
+      "Homepage": "https://github.com/certifi/python-certifi",
+      "Source": "https://github.com/certifi/python-certifi"
+    }
+  },
+  {
+    "file": "sources/cffi-2.1.1.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz",
+    "sha256": "dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be",
+    "bytes": 530807,
+    "component": "cffi",
+    "version": "2.1.1",
+    "ecosystem": "python",
+    "license": "MIT-0",
+    "homepage": null,
+    "projectUrls": {
+      "Changelog": "https://cffi.readthedocs.io/en/latest/whatsnew.html",
+      "Contact": "https://groups.google.com/forum/#!forum/python-cffi",
+      "Documentation": "https://cffi.readthedocs.io/",
+      "Download": "https://github.com/python-cffi/cffi/releases",
+      "Issue Tracker": "https://github.com/python-cffi/cffi/issues",
+      "Source Code": "https://github.com/python-cffi/cffi"
+    }
+  },
+  {
+    "file": "sources/cryptography-50.0.2.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/9d/af/182eb91b0df3fe75c4d9f26fe70684569566745f6ba7e5c9c73a862c5252/cryptography-50.0.2.tar.gz",
+    "sha256": "7b46165bb56eb4704e2eaaf86f3c940d19154535d9b0ca7d6d590b04060e00d5",
+    "bytes": 880623,
+    "component": "cryptography",
+    "version": "50.0.2",
+    "ecosystem": "python",
+    "license": "Apache-2.0 OR BSD-3-Clause",
+    "homepage": null,
+    "projectUrls": {
+      "changelog": "https://cryptography.io/en/latest/changelog/",
+      "documentation": "https://cryptography.io/",
+      "homepage": "https://github.com/pyca/cryptography",
+      "issues": "https://github.com/pyca/cryptography/issues",
+      "source": "https://github.com/pyca/cryptography/"
+    }
+  },
+  {
+    "file": "sources/frozenlist-1.8.0.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/2d/f5/c831fac6cc817d26fd54c7eaccd04ef7e0288806943f7cc5bbf69f3ac1f0/frozenlist-1.8.0.tar.gz",
+    "sha256": "3ede829ed8d842f6cd48fc7081d7a41001a56f1f38603f9d49bf3020d59a31ad",
+    "bytes": 45875,
+    "component": "frozenlist",
+    "version": "1.8.0",
+    "ecosystem": "python",
+    "license": "Apache-2.0",
+    "homepage": "https://github.com/aio-libs/frozenlist",
+    "projectUrls": {
+      "CI: Github Actions": "https://github.com/aio-libs/frozenlist/actions",
+      "Chat: Matrix": "https://matrix.to/#/#aio-libs:matrix.org",
+      "Chat: Matrix Space": "https://matrix.to/#/#aio-libs-space:matrix.org",
+      "Code of Conduct": "https://github.com/aio-libs/.github/blob/master/CODE_OF_CONDUCT.md",
+      "Coverage: codecov": "https://codecov.io/github/aio-libs/frozenlist",
+      "Docs: Changelog": "https://github.com/aio-libs/frozenlist/blob/master/CHANGES.rst#changelog",
+      "Docs: RTD": "https://frozenlist.aio-libs.org",
+      "GitHub: issues": "https://github.com/aio-libs/frozenlist/issues",
+      "GitHub: repo": "https://github.com/aio-libs/frozenlist",
+      "Homepage": "https://github.com/aio-libs/frozenlist"
+    }
+  },
+  {
+    "file": "sources/idna-3.20.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/f5/08/8eea9d4b8302028f3abb2c0813953f7aec26d33b7a8960ed760e65ff29fa/idna-3.20.tar.gz",
+    "sha256": "a7db850025b95ded1eae8a46181a1a6c56c92c96f0e2b005d9ff8dc0210cab44",
+    "bytes": 216463,
+    "component": "idna",
+    "version": "3.20",
+    "ecosystem": "python",
+    "license": "BSD-3-Clause",
+    "homepage": null,
+    "projectUrls": {
+      "Changelog": "https://github.com/kjd/idna/blob/master/HISTORY.md",
+      "Issue tracker": "https://github.com/kjd/idna/issues",
+      "Source": "https://github.com/kjd/idna"
+    }
+  },
+  {
+    "file": "sources/lxml-6.1.3.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/23/ad/28ecd7cb894d172f3c9c80a075eeeb2017ac62e3632cee05a5f9493547eb/lxml-6.1.3.tar.gz",
+    "sha256": "45222d94ddd511536f3b2f7d9deae3b2339b4ce0f075f1ca25703b07cad9dd21",
+    "bytes": 4211198,
+    "component": "lxml",
+    "version": "6.1.3",
+    "ecosystem": "python",
+    "license": "BSD-3-Clause",
+    "homepage": "https://lxml.de/",
+    "projectUrls": {
+      "Bug Tracker": "https://bugs.launchpad.net/lxml",
+      "Homepage": "https://lxml.de/",
+      "Source": "https://github.com/lxml/lxml"
+    }
+  },
+  {
+    "file": "sources/multidict-7.1.0.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/f9/79/84ddb5ba16c4eb2c69c71db76ae3c579fe546e511f7170c7e27eedbab7c1/multidict-7.1.0.tar.gz",
+    "sha256": "61a4e5d81b8d4e4ad61964b230129e7a2b914793d96289029078fc9009f074ec",
+    "bytes": 362341,
+    "component": "multidict",
+    "version": "7.1.0",
+    "ecosystem": "python",
+    "license": "Apache-2.0",
+    "homepage": null,
+    "projectUrls": {
+      "CI: GitHub": "https://github.com/aio-libs/multidict/actions",
+      "Chat: Matrix": "https://matrix.to/#/#aio-libs:matrix.org",
+      "Chat: Matrix Space": "https://matrix.to/#/#aio-libs-space:matrix.org",
+      "Code of Conduct": "https://github.com/aio-libs/.github/blob/master/CODE_OF_CONDUCT.md",
+      "Coverage: codecov": "https://codecov.io/github/aio-libs/multidict",
+      "Docs: Changelog": "https://multidict.aio-libs.org/en/latest/changes/",
+      "Docs: RTD": "https://multidict.aio-libs.org",
+      "GitHub: issues": "https://github.com/aio-libs/multidict/issues",
+      "GitHub: repo": "https://github.com/aio-libs/multidict",
+      "Homepage": "https://github.com/aio-libs/multidict"
+    }
+  },
+  {
+    "file": "sources/oscrypto-1.3.0.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/06/81/a7654e654a4b30eda06ef9ad8c1b45d1534bfd10b5c045d0c0f6b16fecd2/oscrypto-1.3.0.tar.gz",
+    "sha256": "6f5fef59cb5b3708321db7cca56aed8ad7e662853351e7991fcf60ec606d47a4",
+    "bytes": 184590,
+    "component": "oscrypto",
+    "version": "1.3.0",
+    "ecosystem": "python",
+    "license": "MIT",
+    "homepage": "https://github.com/wbond/oscrypto",
+    "projectUrls": {
+      "Homepage": "https://github.com/wbond/oscrypto"
+    }
+  },
+  {
+    "file": "sources/propcache-0.5.4.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/b3/9a/9fbf4e4ec0c2d7f1c32519fff782ef467859b8faa9fbc5331a96f6395d43/propcache-0.5.4.tar.gz",
+    "sha256": "ff6b113f50bc066a698db5d944d2c6dc7507168dd3341e255a8892fd0715a558",
+    "bytes": 61545,
+    "component": "propcache",
+    "version": "0.5.4",
+    "ecosystem": "python",
+    "license": "Apache-2.0",
+    "homepage": "https://github.com/aio-libs/propcache",
+    "projectUrls": {
+      "CI: GitHub Workflows": "https://github.com/aio-libs/propcache/actions?query=branch:master",
+      "Chat: Matrix": "https://matrix.to/#/#aio-libs:matrix.org",
+      "Chat: Matrix Space": "https://matrix.to/#/#aio-libs-space:matrix.org",
+      "Code of Conduct": "https://github.com/aio-libs/.github/blob/master/CODE_OF_CONDUCT.md",
+      "Coverage: codecov": "https://codecov.io/github/aio-libs/propcache",
+      "Docs: Changelog": "https://propcache.readthedocs.io/en/latest/changes/",
+      "Docs: RTD": "https://propcache.readthedocs.io",
+      "GitHub: issues": "https://github.com/aio-libs/propcache/issues",
+      "GitHub: repo": "https://github.com/aio-libs/propcache",
+      "Homepage": "https://github.com/aio-libs/propcache"
+    }
+  },
+  {
+    "file": "sources/pycparser-3.11.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/da/a8/c5fdbeee588bb8ada9458774f43adf1bdd30bd59157055142183e769a024/pycparser-3.11.tar.gz",
+    "sha256": "d875f09c3507d00e1aba0eecc6dcadc1352f30fff09dc6bff2f1c2935e97c2bc",
+    "bytes": 113796,
+    "component": "pycparser",
+    "version": "3.11",
+    "ecosystem": "python",
+    "license": "BSD-3-Clause",
+    "homepage": null,
+    "projectUrls": {
+      "Homepage": "https://github.com/eliben/pycparser"
+    }
+  },
+  {
+    "file": "sources/pyhanko-0.37.0.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/9b/90/9f09846764171aeeb953b7c1de0df292e4eb2d8d746d49722aebd4022d40/pyhanko-0.37.0.tar.gz",
+    "sha256": "86a2647720ac798d7e5e1bca8f7a11959b0a13034a74cdb3357f6f40b2fd1e43",
+    "bytes": 7988521,
+    "component": "pyHanko",
+    "version": "0.37.0",
+    "ecosystem": "python",
+    "license": "MIT",
+    "homepage": null,
+    "projectUrls": {
+      "Changes": "https://docs.pyhanko.eu/en/latest/changelog.html",
+      "Documentation": "https://docs.pyhanko.eu/",
+      "Homepage": "https://github.com/MatthiasValvekens/pyHanko",
+      "Issue Tracker": "https://github.com/MatthiasValvekens/pyHanko/issues",
+      "Source Code": "https://github.com/MatthiasValvekens/pyHanko"
+    }
+  },
+  {
+    "file": "sources/pyhanko_certvalidator-0.32.1.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/2d/94/559f4ffadb51fbc33d0ce8cee34f1a32f1ee6d4ada3495d6e7ef1c9d1a0c/pyhanko_certvalidator-0.32.1.tar.gz",
+    "sha256": "4780e5697f9d8a02fb4648a1b8f2cd0df67615cae491298491467ca53c0fc08d",
+    "bytes": 597230,
+    "component": "pyhanko-certvalidator",
+    "version": "0.32.1",
+    "ecosystem": "python",
+    "license": "MIT",
+    "homepage": null,
+    "projectUrls": {
+      "Homepage": "https://github.com/MatthiasValvekens/pyHanko/tree/master/pkgs/pyhanko-certvalidator"
+    }
+  },
+  {
+    "file": "sources/tzdata-2026.5.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/d9/68/f1b440335057bfce71b6e50a9d09445aa2ecbd08359a337976627b8409e7/tzdata-2026.5.tar.gz",
+    "sha256": "8cc73c0a0bfca7dbfa59235d60b2eff82231dee33f53d206db1acd9173cfc0a7",
+    "bytes": 200404,
+    "component": "tzdata",
+    "version": "2026.5",
+    "ecosystem": "python",
+    "license": "Apache-2.0",
+    "homepage": "https://github.com/python/tzdata",
+    "projectUrls": {
+      "Bug Reports": "https://github.com/python/tzdata/issues",
+      "Documentation": "https://tzdata.python.org",
+      "Homepage": "https://github.com/python/tzdata",
+      "Source": "https://github.com/python/tzdata"
+    }
+  },
+  {
+    "file": "sources/tzlocal-5.4.4.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/81/5b/879b2f932adfa7a053c360d50bc896c977fa6426109185f7c12ebdd0cb9d/tzlocal-5.4.4.tar.gz",
+    "sha256": "8dbb8660838688a7b6ba4fed31d18dedf842afb4d47ca050d6d891c2c15f3be4",
+    "bytes": 31170,
+    "component": "tzlocal",
+    "version": "5.4.4",
+    "ecosystem": "python",
+    "license": "MIT",
+    "homepage": null,
+    "projectUrls": {
+      "Changelog": "https://github.com/regebro/tzlocal/blob/master/CHANGES.txt",
+      "Issue tracker": "https://github.com/regebro/tzlocal/issues",
+      "Source code": "https://github.com/regebro/tzlocal"
+    }
+  },
+  {
+    "file": "sources/uritools-6.1.3.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/a3/0d/20d02264b6682f07e92cbf7ee43e5e803670d101a03ef204ba18368c321f/uritools-6.1.3.tar.gz",
+    "sha256": "3a498e7e85ef3249343d5710618d641a414da0fbae6d23053ada7976ee83ea5f",
+    "bytes": 23909,
+    "component": "uritools",
+    "version": "6.1.3",
+    "ecosystem": "python",
+    "license": "MIT",
+    "homepage": null,
+    "projectUrls": {
+      "Changelog": "https://github.com/tkem/uritools/blob/master/CHANGELOG.rst",
+      "Documentation": "https://uritools.readthedocs.io/en/stable/",
+      "Homepage": "https://github.com/tkem/uritools/",
+      "Issues": "https://github.com/tkem/uritools/issues",
+      "Repository": "https://github.com/tkem/uritools/",
+      "Source": "https://github.com/tkem/uritools/"
+    }
+  },
+  {
+    "file": "sources/yarl-1.25.1.tar.gz",
+    "url": "https://files.pythonhosted.org/packages/75/16/e8be8e2fb175bbf41a0680381a319f1199fae256588241a2ac8677eafb49/yarl-1.25.1.tar.gz",
+    "sha256": "03dd38de09bc213e9a8b29761eec33ee1d5318dac0e49d8af36e4d27830e23a7",
+    "bytes": 246245,
+    "component": "yarl",
+    "version": "1.25.1",
+    "ecosystem": "python",
+    "license": "Apache-2.0",
+    "homepage": "https://github.com/aio-libs/yarl",
+    "projectUrls": {
+      "CI: GitHub Workflows": "https://github.com/aio-libs/yarl/actions?query=branch:master",
+      "Chat: Matrix": "https://matrix.to/#/#aio-libs:matrix.org",
+      "Chat: Matrix Space": "https://matrix.to/#/#aio-libs-space:matrix.org",
+      "Code of Conduct": "https://github.com/aio-libs/.github/blob/master/CODE_OF_CONDUCT.md",
+      "Coverage: codecov": "https://codecov.io/github/aio-libs/yarl",
+      "Docs: Changelog": "https://yarl.aio-libs.org/en/latest/changes/",
+      "Docs: RTD": "https://yarl.aio-libs.org",
+      "GitHub: issues": "https://github.com/aio-libs/yarl/issues",
+      "GitHub: repo": "https://github.com/aio-libs/yarl",
+      "Homepage": "https://github.com/aio-libs/yarl"
+    }
+  },
+  {
+    "file": "sources/org.verapdf.verapdf-xmp-core-1.28.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/verapdf-xmp-core/1.28.2/verapdf-xmp-core-1.28.2-sources.jar",
+    "sha256": "14d5aa5656c1c1935d245b77e340ba5c251942a83094c1e41ef6e562fcad8bf4",
+    "bytes": 168231,
+    "component": "org.verapdf:verapdf-xmp-core",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.verapdf-xmp-core-1.28.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/verapdf-xmp-core/1.28.2/verapdf-xmp-core-1.28.2.pom",
+    "sha256": "5f683ded21da506d8e990e60b88ffea40cc94187d440bdba314686e61343e130",
+    "bytes": 1744,
+    "component": "org.verapdf:verapdf-xmp-core",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.validation-model-1.28.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/validation-model/1.28.2/validation-model-1.28.2-sources.jar",
+    "sha256": "d11d942efe6798a4ba134cb47a8cfe89ac624c0131c098941e3615799793f19d",
+    "bytes": 383318,
+    "component": "org.verapdf:validation-model",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.validation-model-1.28.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/validation-model/1.28.2/validation-model-1.28.2.pom",
+    "sha256": "e3c9b925f7a1888c16f800a4b765e1792e398e614c3c3add9f2593e05b933843",
+    "bytes": 2549,
+    "component": "org.verapdf:validation-model",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.fasterxml.jackson.core.jackson-core-2.15.0-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.15.0/jackson-core-2.15.0-sources.jar",
+    "sha256": "f0edf838a7817d3e9ab8f25c51cb50e7c627db215ef19356cf6bf5266313924e",
+    "bytes": 460329,
+    "component": "com.fasterxml.jackson.core:jackson-core",
+    "version": "2.15.0",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.fasterxml.jackson.core.jackson-core-2.15.0.pom",
+    "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.15.0/jackson-core-2.15.0.pom",
+    "sha256": "0a3af5df36f1f27e17644817a62409baa25864a3493a3d2880ad7009b0e703ae",
+    "bytes": 8606,
+    "component": "com.fasterxml.jackson.core:jackson-core",
+    "version": "2.15.0",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.feature-reporting-1.28.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/feature-reporting/1.28.2/feature-reporting-1.28.2-sources.jar",
+    "sha256": "9c47205d95d3948d1829a3b895d9309372b23b143754c65dc8f20021997cc088",
+    "bytes": 48688,
+    "component": "org.verapdf:feature-reporting",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.feature-reporting-1.28.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/feature-reporting/1.28.2/feature-reporting-1.28.2.pom",
+    "sha256": "4f92294837c26f826f08dae8f74025c03a5d975ad9de93d348ff4799fe6b66b9",
+    "bytes": 2568,
+    "component": "org.verapdf:feature-reporting",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/javax.xml.bind.jaxb-api-2.3.1-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1-sources.jar",
+    "sha256": "d69dc2c28833df5fb6e916efae01477ae936326b342d479a43539b0131c96b9d",
+    "bytes": 271123,
+    "component": "javax.xml.bind:jaxb-api",
+    "version": "2.3.1",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/javax.xml.bind.jaxb-api-2.3.1.pom",
+    "url": "https://repo.maven.apache.org/maven2/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.pom",
+    "sha256": "12b20cf922773445c3445c2883cbf671fa982111e9bf9f875020f9313b3814b1",
+    "bytes": 20160,
+    "component": "javax.xml.bind:jaxb-api",
+    "version": "2.3.1",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.fasterxml.jackson.core.jackson-annotations-2.15.0-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.15.0/jackson-annotations-2.15.0-sources.jar",
+    "sha256": "d93c52617ebb0a442a1f395a558d740fc1c887f7f2bd4745b2fb2e4fa50588d3",
+    "bytes": 81832,
+    "component": "com.fasterxml.jackson.core:jackson-annotations",
+    "version": "2.15.0",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.fasterxml.jackson.core.jackson-annotations-2.15.0.pom",
+    "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.15.0/jackson-annotations-2.15.0.pom",
+    "sha256": "2f8159b442196faaa0e1374e2d2234b57feec32b27617fa1d7f5d9a8e0be3728",
+    "bytes": 7058,
+    "component": "com.fasterxml.jackson.core:jackson-annotations",
+    "version": "2.15.0",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/javax.activation.javax.activation-api-1.2.0-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0-sources.jar",
+    "sha256": "d7411fb29089cafa4b77493f10bfb52832cd1976948903d0b039e12b0bd70334",
+    "bytes": 78896,
+    "component": "javax.activation:javax.activation-api",
+    "version": "1.2.0",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/javax.activation.javax.activation-api-1.2.0.pom",
+    "url": "https://repo.maven.apache.org/maven2/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.pom",
+    "sha256": "da2926f3c8be898643cc10acdec6de0b0351a57fb2735770fa0177b06ade71b9",
+    "bytes": 4919,
+    "component": "javax.activation:javax.activation-api",
+    "version": "1.2.0",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.metadata-fixer-1.28.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/metadata-fixer/1.28.2/metadata-fixer-1.28.2-sources.jar",
+    "sha256": "f52762906f3141ee21a0ce96c9704fe16fdda3ea4e0b008cc2b1f2c0b8fff0de",
+    "bytes": 21545,
+    "component": "org.verapdf:metadata-fixer",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.metadata-fixer-1.28.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/metadata-fixer/1.28.2/metadata-fixer-1.28.2.pom",
+    "sha256": "8f7e69a3d34fedb81282b158216c2c69cc1b1bb684711344a74098779829c270",
+    "bytes": 2176,
+    "component": "org.verapdf:metadata-fixer",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.apps.gui-1.28.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/apps/gui/1.28.2/gui-1.28.2-sources.jar",
+    "sha256": "0bc79b1ed36ea3f6227f7d6f0093bb3e0c2dc6e6837f7d961054739d88e901ff",
+    "bytes": 237748,
+    "component": "org.verapdf.apps:gui",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.apps.gui-1.28.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/apps/gui/1.28.2/gui-1.28.2.pom",
+    "sha256": "c721e0b35a99b1a7c1c711091c000b10f08b196f6caeb1c18a204576b11639cb",
+    "bytes": 2456,
+    "component": "org.verapdf.apps:gui",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.sun.istack.istack-commons-runtime-3.0.5-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/com/sun/istack/istack-commons-runtime/3.0.5/istack-commons-runtime-3.0.5-sources.jar",
+    "sha256": "92235ba19d5776456a89b469100de2033e838aaeffc69ad98044603b8e8f0ea1",
+    "bytes": 36415,
+    "component": "com.sun.istack:istack-commons-runtime",
+    "version": "3.0.5",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.sun.istack.istack-commons-runtime-3.0.5.pom",
+    "url": "https://repo.maven.apache.org/maven2/com/sun/istack/istack-commons-runtime/3.0.5/istack-commons-runtime-3.0.5.pom",
+    "sha256": "fb892aff4c68f0efc4756c97112e044cdd44e73276d3641f9cc1d6ba3c1366e6",
+    "bytes": 3434,
+    "component": "com.sun.istack:istack-commons-runtime",
+    "version": "3.0.5",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.glassfish.jaxb.jaxb-core-2.3.0.1-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-core/2.3.0.1/jaxb-core-2.3.0.1-sources.jar",
+    "sha256": "c3b2ac8a47dc81dbb99818283c23e83e63fc6dccb01ee3062437b46614f4e11f",
+    "bytes": 208773,
+    "component": "org.glassfish.jaxb:jaxb-core",
+    "version": "2.3.0.1",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.glassfish.jaxb.jaxb-core-2.3.0.1.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-core/2.3.0.1/jaxb-core-2.3.0.1.pom",
+    "sha256": "c1a3d3fda56df5fabe6fbf9eb39b2a8ce7b53c04801498601e9e4df6d6d85166",
+    "bytes": 5052,
+    "component": "org.glassfish.jaxb:jaxb-core",
+    "version": "2.3.0.1",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.glassfish.jaxb.txw2-2.3.0.1-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/txw2/2.3.0.1/txw2-2.3.0.1-sources.jar",
+    "sha256": "7815dad139de674d13fa73af7ae70dfee1db3b4d631f2d2596416ff2ba883cd3",
+    "bytes": 99273,
+    "component": "org.glassfish.jaxb:txw2",
+    "version": "2.3.0.1",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.glassfish.jaxb.txw2-2.3.0.1.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/txw2/2.3.0.1/txw2-2.3.0.1.pom",
+    "sha256": "38b91b6e93dbe1b4b73464a563545bb6213cc09947fa43bffaafb397379ccbe1",
+    "bytes": 3324,
+    "component": "org.glassfish.jaxb:txw2",
+    "version": "2.3.0.1",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.sun.xml.bind.jaxb-core-2.3.0.1-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/com/sun/xml/bind/jaxb-core/2.3.0.1/jaxb-core-2.3.0.1-sources.jar",
+    "sha256": "d628f0d4d24e5a89842a81533da9f5eb4dd7c9bd5e2321c3ded3785e3f28a65f",
+    "bytes": 345974,
+    "component": "com.sun.xml.bind:jaxb-core",
+    "version": "2.3.0.1",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.sun.xml.bind.jaxb-core-2.3.0.1.pom",
+    "url": "https://repo.maven.apache.org/maven2/com/sun/xml/bind/jaxb-core/2.3.0.1/jaxb-core-2.3.0.1.pom",
+    "sha256": "ee7bb74f42fdc4db10e3cc9c68c0e9b5beaf8ebb36cce91d495b479b026c6aab",
+    "bytes": 16171,
+    "component": "com.sun.xml.bind:jaxb-core",
+    "version": "2.3.0.1",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.core-1.28.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/core/1.28.2/core-1.28.2-sources.jar",
+    "sha256": "acd776c81338981804403aef683178f066be26a8dc813360f88bcd5668f712a9",
+    "bytes": 804760,
+    "component": "org.verapdf:core",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.core-1.28.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/core/1.28.2/core-1.28.2.pom",
+    "sha256": "136509705cd16d98d58caa0fa2d7e621602b2ca875bcd197c24f8e7ee556360e",
+    "bytes": 3423,
+    "component": "org.verapdf:core",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.glassfish.jaxb.jaxb-runtime-2.3.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-runtime/2.3.2/jaxb-runtime-2.3.2-sources.jar",
+    "sha256": "b85c2e314e6565e7dc4fb7e00ec8688c1c0fe9c9f7275125fb8dee43898f3743",
+    "bytes": 757829,
+    "component": "org.glassfish.jaxb:jaxb-runtime",
+    "version": "2.3.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.glassfish.jaxb.jaxb-runtime-2.3.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-runtime/2.3.2/jaxb-runtime-2.3.2.pom",
+    "sha256": "9448a5ad7fa68a6083dfbe4f42c8c83e082b9202a105401fc68e944c26548b34",
+    "bytes": 5573,
+    "component": "org.glassfish.jaxb:jaxb-runtime",
+    "version": "2.3.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.sun.xml.bind.jaxb-impl-2.3.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/com/sun/xml/bind/jaxb-impl/2.3.2/jaxb-impl-2.3.2-sources.jar",
+    "sha256": "f9b79e69b82e52160fea14388eedc895109f56199e4bb4bedfb21adb273a86d8",
+    "bytes": 759989,
+    "component": "com.sun.xml.bind:jaxb-impl",
+    "version": "2.3.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.sun.xml.bind.jaxb-impl-2.3.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/com/sun/xml/bind/jaxb-impl/2.3.2/jaxb-impl-2.3.2.pom",
+    "sha256": "565c155012967597ce8d35140f262094a12612172289a4fe6453c3f0337877a1",
+    "bytes": 12873,
+    "component": "com.sun.xml.bind:jaxb-impl",
+    "version": "2.3.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.pdf-model-1.28.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/pdf-model/1.28.2/pdf-model-1.28.2-sources.jar",
+    "sha256": "c8ec0574c8cbdba1ac2bf1cda12513eedbc362bfce80b9c0bf64127f830ff130",
+    "bytes": 355358,
+    "component": "org.verapdf:pdf-model",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.pdf-model-1.28.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/pdf-model/1.28.2/pdf-model-1.28.2.pom",
+    "sha256": "ec6610fab67196d8089132ce5fd3a3a341c7db4157da73af3ff320f5b9965f82",
+    "bytes": 6791,
+    "component": "org.verapdf:pdf-model",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.fasterxml.jackson.core.jackson-databind-2.15.0-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.15.0/jackson-databind-2.15.0-sources.jar",
+    "sha256": "dbf33fec80c5f81529582bb1e3e77d743a16d97fca88bddbff1fd2c40ee044a1",
+    "bytes": 1199044,
+    "component": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.15.0",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/com.fasterxml.jackson.core.jackson-databind-2.15.0.pom",
+    "url": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.15.0/jackson-databind-2.15.0.pom",
+    "sha256": "8c380d3fe3dcc298d028798a1f92dfc31824fda041144af2362f1fcf30ee788f",
+    "bytes": 18816,
+    "component": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.15.0",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.parser-1.28.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/parser/1.28.2/parser-1.28.2-sources.jar",
+    "sha256": "43e067ee60cf35f7c7b30db39a33ac39df29d34977f959e6cbf32ec58b77901b",
+    "bytes": 2205380,
+    "component": "org.verapdf:parser",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.parser-1.28.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/parser/1.28.2/parser-1.28.2.pom",
+    "sha256": "1f64370e52c08fe545ae0bab944e1f385f1123a0998038489b3f5a9a85ece842",
+    "bytes": 5623,
+    "component": "org.verapdf:parser",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.apps.greenfield-apps-1.28.2-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/apps/greenfield-apps/1.28.2/greenfield-apps-1.28.2-sources.jar",
+    "sha256": "84936c3672c0f7a0d8013959901d7fe4b24f03ab4f5985b3f5d954194d304e09",
+    "bytes": 4398,
+    "component": "org.verapdf.apps:greenfield-apps",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/org.verapdf.apps.greenfield-apps-1.28.2.pom",
+    "url": "https://repo.maven.apache.org/maven2/org/verapdf/apps/greenfield-apps/1.28.2/greenfield-apps-1.28.2.pom",
+    "sha256": "4f76de46fd8313b6ee211f7d24255e9e346b569bfb99466b4a16d9df9e3852b3",
+    "bytes": 3363,
+    "component": "org.verapdf.apps:greenfield-apps",
+    "version": "1.28.2",
+    "ecosystem": "maven"
+  },
+  {
+    "file": "sources/veraPDF-apps-v1.28.2.zip",
+    "url": "https://codeload.github.com/veraPDF/veraPDF-apps/zip/refs/tags/v1.28.2",
+    "sha256": "eb3422888cfd599e0996cc2ef17c1a646d9c65665419c4bf471f2457d3e7304f",
+    "bytes": 1097580,
+    "component": "veraPDF-apps",
+    "version": "1.28.2"
+  },
+  {
+    "file": "sources/veraPDF-library-v1.28.2.zip",
+    "url": "https://codeload.github.com/veraPDF/veraPDF-library/zip/refs/tags/v1.28.2",
+    "sha256": "b535380dfcc3e517c3e3f97f65b6b4dcd19a5a23a0ef223e1843b6c385280a5e",
+    "bytes": 1253876,
+    "component": "veraPDF-library",
+    "version": "1.28.2"
+  },
+  {
+    "file": "sources/veraPDF-model-v1.28.2.zip",
+    "url": "https://codeload.github.com/veraPDF/veraPDF-model/zip/refs/tags/v1.28.2",
+    "sha256": "2c497cad332a9d8f5377f9a77b89abad34eb1b618f86b05a784178c707c6d3a8",
+    "bytes": 47989,
+    "component": "veraPDF-model",
+    "version": "1.28.2"
+  },
+  {
+    "file": "sources/veraPDF-parser-v1.28.2.zip",
+    "url": "https://codeload.github.com/veraPDF/veraPDF-parser/zip/refs/tags/v1.28.2",
+    "sha256": "d1c1f292147f69db60f8fe4086fd9c47a509cc57801205c39b0787223f83852b",
+    "bytes": 2467417,
+    "component": "veraPDF-parser",
+    "version": "1.28.2"
+  },
+  {
+    "file": "sources/temurin17-jdk17u-79597447bd94.tar.gz",
+    "url": "https://codeload.github.com/adoptium/jdk17u/tar.gz/79597447bd94",
+    "sha256": "c7e2045844b32008ca77079586d209f59e15752ed355c713a1ec311c58ed206c",
+    "bytes": 108347910,
+    "component": "Temurin JRE",
+    "version": "17.0.20.1+1",
+    "sourceRevision": "79597447bd94"
+  },
+  {
+    "file": "sources/temurin-build-e6ba7dec3d07654074559310376a3ae89da5f4ac.tar.gz",
+    "url": "https://codeload.github.com/adoptium/temurin-build/tar.gz/e6ba7dec3d07654074559310376a3ae89da5f4ac",
+    "sha256": "b1340378b9ed62b32acfacd012dd069ec2b9d940fc39d3c73f32142d64e89713",
+    "bytes": 584568,
+    "component": "Temurin build scripts",
+    "sourceRevision": "e6ba7dec3d07654074559310376a3ae89da5f4ac"
+  },
+  {
+    "component": "veraPDF-validation-profiles",
+    "version": "rel-1.28 shipped in veraPDF 1.28.2",
+    "file": "sources/veraPDF-validation-profiles-shipped-1.28.2.zip",
+    "sha256": "21696a2a8f6fbeb067bc7077177874c12aec09da0812988bf88af75db05e158c",
+    "source": "Exact human-readable XML/XSD source files from original installer; unmodified"
+  }
+]

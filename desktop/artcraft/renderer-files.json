@@ -1,0 +1,277 @@
+[
+  {
+    "path": "assets/index-BRNttWpU.js",
+    "bytes": 4129942,
+    "sha256": "b75e544916bb9588a7b86573ac0a67118112b2ea27803c7c84c66e6aa188bd40"
+  },
+  {
+    "path": "assets/index-Do4x_6mB.css",
+    "bytes": 162818,
+    "sha256": "2bce4f556d090ef9e697e61acea392e1f5481e1fa193ab50175ed012e69ed162"
+  },
+  {
+    "path": "index.html",
+    "bytes": 364,
+    "sha256": "77ea3800ef275ed6c40acc6270abb0817a6e4cd2ac9a44818570d84341b7064a"
+  },
+  {
+    "path": "jsm/libs/ammo.wasm.js",
+    "bytes": 442459,
+    "sha256": "9b765569bce6993e781cd95d548c3711b119f355b512b25722e86a27d6ea8857"
+  },
+  {
+    "path": "jsm/libs/ammo.wasm.wasm",
+    "bytes": 747690,
+    "sha256": "a73b547ed4289aa174bf3424b14b3cb8addc7fe708cd2636d306b72880d6ad13"
+  },
+  {
+    "path": "local-assets/black.svg",
+    "bytes": 118,
+    "sha256": "1df78dbc81c12c19761d87cc5d17672d62488e5210b40638b995f52219b2da30"
+  },
+  {
+    "path": "local-assets/gray.svg",
+    "bytes": 118,
+    "sha256": "5068090e9fc10947ca35b30de769ea74ae617fc7f1bd8b9e6545bc07b24cfd80"
+  },
+  {
+    "path": "local-assets/mannequin.glb",
+    "bytes": 1295184,
+    "sha256": "7b45b48d02c2dca5440befd9a61f43723c4db7703185c5e6e94cc3457a34d1e0"
+  },
+  {
+    "path": "local-assets/mannequin.svg",
+    "bytes": 334,
+    "sha256": "9d2adcf369075e785f48f4ce78c5708192b42263f71d3068e7a7caa829a457ce"
+  },
+  {
+    "path": "resources/fonts/CarterOneRegular.json",
+    "bytes": 361595,
+    "sha256": "492f11aff124dde58ce2bb478a616c077825f32638a89712159964b44ca1ad96"
+  },
+  {
+    "path": "resources/images/services/alibaba.svg",
+    "bytes": 1790,
+    "sha256": "dcb3ba2f2b55ccbacbade0ca0bf98921fbaf8a07848972974b4a9bf8077376cf"
+  },
+  {
+    "path": "resources/images/services/artcraft.svg",
+    "bytes": 781,
+    "sha256": "bfcebc664072969a92650c79e53dda5820b85cbec91be4090409d1fca0b7a387"
+  },
+  {
+    "path": "resources/images/services/blackforestlabs.svg",
+    "bytes": 438,
+    "sha256": "c7d557466f39a895b1cd0d233a64c092ef61ba052160af7db20af37464a9138a"
+  },
+  {
+    "path": "resources/images/services/bytedance.svg",
+    "bytes": 873,
+    "sha256": "f7ae0a574bd2e28b17258e6e65061c564f764d807cba65d6d1013f50cbfdd7f5"
+  },
+  {
+    "path": "resources/images/services/color/alibaba.svg",
+    "bytes": 1407,
+    "sha256": "48ee796c5b1da5f5f11dbd70c5c64a3f7efcb9eeb9022ae687d81fc813e942ee"
+  },
+  {
+    "path": "resources/images/services/color/bytedance.svg",
+    "bytes": 953,
+    "sha256": "3d37647be262c79b044e293bb1a4993202537e9f9ffdbd2bbe7e9fc5378d1005"
+  },
+  {
+    "path": "resources/images/services/color/fal.svg",
+    "bytes": 692,
+    "sha256": "577d952ac6f863d6b0dd129918597692230b2fe0633cb4ea0e0a5085aa3f8c7d"
+  },
+  {
+    "path": "resources/images/services/color/google.svg",
+    "bytes": 920,
+    "sha256": "4e6aa8892ef15a6b431f40f2c9045979bf7e2357524e7bbb89b353cf4f32a5ac"
+  },
+  {
+    "path": "resources/images/services/color/kling.svg",
+    "bytes": 2245,
+    "sha256": "a8aa4def0eb1c3ca0f0528597d28fa495249aa710aa403d3c571c47c81c6150c"
+  },
+  {
+    "path": "resources/images/services/color/meshy.svg",
+    "bytes": 6154,
+    "sha256": "2e5ae17b98777ed8fc850ab7b9c8f4bfbf2cc1dcb1627dc9695a25056e2cd786"
+  },
+  {
+    "path": "resources/images/services/color/minimax.svg",
+    "bytes": 1570,
+    "sha256": "7f7187fa6d9b341ac5f22f6c5a970523afb439dc45566d64eb4f4b9b604d6b01"
+  },
+  {
+    "path": "resources/images/services/color/stability.svg",
+    "bytes": 992,
+    "sha256": "61c4593effe20b4fa1f0811861bb6ac199348d955b21a5c3f719bc07c9d27d3a"
+  },
+  {
+    "path": "resources/images/services/color/tencent.svg",
+    "bytes": 1115,
+    "sha256": "510e7bb438506b5aadfaf8b9551d1606efd5b4171161a64a64204c72a453658a"
+  },
+  {
+    "path": "resources/images/services/color/tripo.svg",
+    "bytes": 1029,
+    "sha256": "3c7b94874e10fd41031f9d9554b3d1dfa0f310820d3a3c53463c7d66f45c7a4f"
+  },
+  {
+    "path": "resources/images/services/color/vidu.svg",
+    "bytes": 1376,
+    "sha256": "66024ae1b72a813287a82bd02ee218258265386ef350c3995ca7bd966e36ec56"
+  },
+  {
+    "path": "resources/images/services/fal.svg",
+    "bytes": 697,
+    "sha256": "622cdc2ccc3aefe55d60f2bb65af9e16c74143da980a806c4074c98e31b0e5b7"
+  },
+  {
+    "path": "resources/images/services/generic.svg",
+    "bytes": 717,
+    "sha256": "0482f30e40715d5cc58eb6c3d6b4066c60ea0a029cb30f5acd23eddf475685f8"
+  },
+  {
+    "path": "resources/images/services/google.svg",
+    "bytes": 651,
+    "sha256": "87d5b3c4be75a66f54c1936482a263df68185545b741129badd1b7c2449c18d3"
+  },
+  {
+    "path": "resources/images/services/grok.svg",
+    "bytes": 756,
+    "sha256": "9175fc90c22655160231976c849f25a03b888d7cc0e04c5f1b987b659bb07c95"
+  },
+  {
+    "path": "resources/images/services/higgsfield.svg",
+    "bytes": 824,
+    "sha256": "7db487c5318318ff732627a9ae79eb00993f7702536ba10770c91c21c11147e1"
+  },
+  {
+    "path": "resources/images/services/hyper3d.svg",
+    "bytes": 2731,
+    "sha256": "a0433f83596a341653f234f58c35adecf66cd41c918c3160eb0760d68ccc8989"
+  },
+  {
+    "path": "resources/images/services/kling.svg",
+    "bytes": 888,
+    "sha256": "9af7c7182a2b784259618f0d5243c433e52cbc6b4de10a8f7c5a9126dc1f24d0"
+  },
+  {
+    "path": "resources/images/services/krea.svg",
+    "bytes": 1787,
+    "sha256": "a0ae5484aadb38b785d8b4c0d09c314c86f40aba4e1966a08be8b1d56e1c45d5"
+  },
+  {
+    "path": "resources/images/services/meshy.svg",
+    "bytes": 2149,
+    "sha256": "c3d9715544c7210878547797a629b4ab3c535d5cfa69f1a0e580fea977f9476d"
+  },
+  {
+    "path": "resources/images/services/midjourney.svg",
+    "bytes": 4012,
+    "sha256": "e09640ccbf6f643b4624e540f198cd704a6bf3d75dc43b0938628caf4e98c30b"
+  },
+  {
+    "path": "resources/images/services/minimax.svg",
+    "bytes": 1334,
+    "sha256": "bb96e2005081494716de6af5fd030701ae551ee68393ad61b325c07325607848"
+  },
+  {
+    "path": "resources/images/services/openai.svg",
+    "bytes": 1707,
+    "sha256": "f3cf560e84bd85915e32b887cb2abd323529be62d8b4001d2f778669b77eda35"
+  },
+  {
+    "path": "resources/images/services/openart.svg",
+    "bytes": 807,
+    "sha256": "a2b9c22d424e6ec04ae0107263d421c67d74d3b46c5c8972e68fcaec50565218"
+  },
+  {
+    "path": "resources/images/services/recraft.svg",
+    "bytes": 562,
+    "sha256": "ccb97a588aebf55a78bbc6ef6416cb0d9c5862a180dfada2713e0b6fc3245d08"
+  },
+  {
+    "path": "resources/images/services/replicate.svg",
+    "bytes": 313,
+    "sha256": "ff02158db5bc4a693d7f690c36cd7d547b8ca3313accba0783b2d3af28dae1e6"
+  },
+  {
+    "path": "resources/images/services/suno.svg",
+    "bytes": 626,
+    "sha256": "8ac92d5d05f55bf2be3bd917e35c8a1b46d070dde469ea09406cc9d8d57447f7"
+  },
+  {
+    "path": "resources/images/services/tencent.svg",
+    "bytes": 954,
+    "sha256": "7306a65eb71c4de61e21a637e5c4fef94afde823678e225c46f891cc783f6531"
+  },
+  {
+    "path": "resources/images/services/tensorart.svg",
+    "bytes": 854,
+    "sha256": "b9c6416c5ea948da1aeb823a0b8baf6a25f9bae5783079e84649ebad11eea122"
+  },
+  {
+    "path": "resources/images/services/tripo.svg",
+    "bytes": 1014,
+    "sha256": "524cd9f636cdf501952abd4cb552d6a4fdeef1d78c36d57438ab3d4241fec74b"
+  },
+  {
+    "path": "resources/images/services/vidu.svg",
+    "bytes": 912,
+    "sha256": "6c606e2db0815149187fec8f20dc8525f90cc0fc31c9fca4071b4cfc436f7559"
+  },
+  {
+    "path": "resources/images/services/worldlabs.svg",
+    "bytes": 680,
+    "sha256": "7ca8ac25f5b88c503155562aa4b61f6ae976f54874824d105c7ac61698163537"
+  },
+  {
+    "path": "resources/placeholders/audio_placeholder.png",
+    "bytes": 4558,
+    "sha256": "4b5afc8b6672d331fa72514bdb36541fb3165c106b652e15ae25371e5ec6be3d"
+  },
+  {
+    "path": "resources/placeholders/placeholder.png",
+    "bytes": 615,
+    "sha256": "6bb81c805c1b07f855625e2918b857a6d654b5083a705f8e09a5ee796b63a707"
+  },
+  {
+    "path": "resources/placeholders/scene_placeholder.png",
+    "bytes": 1874,
+    "sha256": "f7d7295b8762f406d8a243c5af4c155f022009eef44cdd483727c40a02279da5"
+  },
+  {
+    "path": "resources/shapes/cube.png",
+    "bytes": 7585,
+    "sha256": "8f158703a6a1c398945de2d807cc9758b710e38f70c546d1000f35a9b9c766e0"
+  },
+  {
+    "path": "resources/shapes/cylinder.png",
+    "bytes": 5742,
+    "sha256": "5edec6dbb548929cffaedeb072afc758eacbc519ea1eff7ba47a666fa64bfff9"
+  },
+  {
+    "path": "resources/shapes/donut.png",
+    "bytes": 10512,
+    "sha256": "9ac1895d3bb792589f08ae2183c385c20a75106a1416f1b6137695c12c64efa0"
+  },
+  {
+    "path": "resources/shapes/pointlight.png",
+    "bytes": 14885,
+    "sha256": "457952ecfa90b526c1d5689dbb787af3f7fbf91dd2362720b26be2229b21e392"
+  },
+  {
+    "path": "resources/shapes/sphere.png",
+    "bytes": 8557,
+    "sha256": "0e0c3e00bb0fff9fd57150cd027a6ae3e7d3ac1209e3b253a1fa0269f337cf94"
+  },
+  {
+    "path": "resources/shapes/water.png",
+    "bytes": 174553,
+    "sha256": "9d5159ecfcc23ed68c39decc52fafee7bc80033f198e16fa52b91e804f5ba553"
+  }
+]

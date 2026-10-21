@@ -1,0 +1,74 @@
+{
+  "model": "U2Net",
+  "modelSource": "https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2net.onnx",
+  "upstreamRevisions": {
+    "u2net": "ac7e1c817ecab7c7dff5ce6b1abba61cd213ff29",
+    "rembg": "cd8f3665dda6c246b5baecb85fda6a2acd644c2a"
+  },
+  "modelLicense": "Apache-2.0 (U-2-Net upstream)",
+  "sessionCodeLicense": "MIT (rembg)",
+  "runtimeDependencies": {
+    "python": "3.14.0",
+    "onnxruntime": "1.27.0",
+    "numpy": "2.4.6",
+    "pillow": "12.2.0"
+  },
+  "cpuThreads": 4,
+  "files": [
+    {
+      "path": "models/u2net.onnx",
+      "bytes": 175997641,
+      "sha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491"
+    },
+    {
+      "path": "upstream/LICENSE.txt",
+      "bytes": 1069,
+      "sha256": "90a3215072968fd304669c5389f04f1274a587abdd0507d99dead0f5511f8999"
+    },
+    {
+      "path": "upstream/rembg_sessions_base.py",
+      "bytes": 8483,
+      "sha256": "ec4c58b33dd47ad6f03883ee375353314b19d5688fffd5c1ddb57bb21e9846a3"
+    },
+    {
+      "path": "upstream/rembg_sessions_u2net.py",
+      "bytes": 2569,
+      "sha256": "26318aeb4dbad1e34d7f8ad195653554b85191dd007c1d69bfbceab2eef84f5f"
+    },
+    {
+      "path": "upstream/revisions.json",
+      "bytes": 117,
+      "sha256": "83bd3e96ef6bbefcc50343b50d51b451b9b74d07d84b541bc52869fa1f78ec1f"
+    },
+    {
+      "path": "upstream/u2net_LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "upstream/u2net_model_u2net.py",
+      "bytes": 14719,
+      "sha256": "96dd7a19c7de4f13520ccfc1075ded3350ff4946493be3561b9918a46218f415"
+    },
+    {
+      "path": "upstream/u2net_README.md",
+      "bytes": 17846,
+      "sha256": "2dda6120b8fde9efc40f342db96087c1827b8657f98bb16b668ebe3c34f66c8f"
+    },
+    {
+      "path": "notices/REMBG-LICENSE.txt",
+      "bytes": 1069,
+      "sha256": "90a3215072968fd304669c5389f04f1274a587abdd0507d99dead0f5511f8999"
+    },
+    {
+      "path": "notices/THIRD-PARTY-NOTICES.md",
+      "bytes": 1268,
+      "sha256": "7071a0109e3cf597005a79f5f906cf9b8af37ae37c951edd11bedf49df4d95ad"
+    },
+    {
+      "path": "notices/U2NET-LICENSE.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    }
+  ]
+}

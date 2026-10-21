@@ -1,0 +1,9 @@
+{
+  "version": "1.4.1",
+  "url": "https://dl.google.com/agy-extensions/releases/macos/agy-acp-server-1.4.1-darwin-arm64.zip",
+  "sha256": "f9bdd68291ae78c38d2141e63bc86b84e6cc7b9f60f71652c68435a7943deb17",
+  "files": {
+    "agy_acp_server.par": "ee664236c317b38f33fb8d14188c5e32887bf493ab1372f1185cde126a3b130d",
+    "localharness_external": "b5b921d79c849806204901a24cb6a961bf2a689edd8a2e226401c96e368cfb6f"
+  }
+}

@@ -1,0 +1,21 @@
+const test=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const os=require('node:os');
+const path=require('node:path');
+const {installContext}=require('../install-context.cjs');
+test('installed data survives program replacement; portable profiles keep their existing location',t=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'studio-install-context-'));
+ t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+ const opts={isPackaged:true,execPath:path.join(root,'Unified Studio.exe'),root,env:{LOCALAPPDATA:path.join(root,'local')}};
+ assert.equal(installContext(opts).dataDir,path.join(root,'StudioData'));
+ fs.writeFileSync(path.join(root,'installation.json'),JSON.stringify({mode:'installed'}));
+ const installed=installContext(opts);
+ assert.equal(installed.dataDir,path.join(root,'local','UnifiedStudio','UserData'));
+ assert.ok(!installed.dataDir.startsWith(path.join(root,'program')));
+ assert.equal(installed.defaultsUrl,'ms-settings:defaultapps?registeredAppUser=Unified%20Studio');
+ assert.equal(installContext({...opts,env:{...opts.env,UNIFIED_STUDIO_DATA:path.join(root,'isolated')}}).dataDir,path.join(root,'isolated'));
+ assert.equal(installContext({...opts,isPackaged:false}).installed,false);
+ fs.writeFileSync(path.join(root,'installation.json'),'broken');
+ assert.equal(installContext(opts).installed,false);
+});

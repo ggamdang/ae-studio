@@ -1,0 +1,76 @@
+{
+  "upstream": {
+    "repository": "https://github.com/storytold/artcraft",
+    "commit": "d4e4ac69bbd93d237eaf5d0260bc6a5ff3a5e373",
+    "download": "https://codeload.github.com/storytold/artcraft/zip/refs/heads/main",
+    "downloadSha256": "76ffceb1d2bab70f67e8dd3ca6faa7aee32d6f82e4bf9db20075b82715f52acb",
+    "license": "MIT OR Apache-2.0",
+    "includedSourceFiles": 2147
+  },
+  "sourcePackaging": {
+    "rawReleaseArchivesIncluded": false,
+    "oldFairSourceLicenseIncluded": false,
+    "noticesExclusionAuditPassed": true,
+    "omissionList": "omitted-upstream-assets.json"
+  },
+  "localAssets": {
+    "mannequin": {
+      "path": "assets/mannequin.glb",
+      "sha256": "7b45b48d02c2dca5440befd9a61f43723c4db7703185c5e6e94cc3457a34d1e0",
+      "origin": "Original procedural geometry and 19-bone skeleton in generate-mannequin.mjs",
+      "license": "MIT"
+    },
+    "syntheticFigure": {
+      "path": "fixtures/original-figure.png",
+      "sha256": "dac7ac8b5083f472bf2dc077d4175b1f5500befdd234000ed9ebe19f40c05d76",
+      "origin": "Original synthetic geometric mannequin created for Unified Studio background removal QA",
+      "license": "MIT"
+    }
+  },
+  "verification": {
+    "suite": "Integrated Unified Studio Electron ArtCraft smoke",
+    "passed": true,
+    "applicationErrors": [],
+    "checks": [
+      "canvas-shapes-drawing-mask",
+      "canvas-png-export",
+      "local-background-removal-ui",
+      "scene-shapes-light-mannequin",
+      "local-image-plane-import",
+      "portable-scene-pose-canvas-roundtrip",
+      "scene-capture-to-canvas",
+      "image-import-after-return-to-canvas",
+      "global-artcraft-file-open",
+      "global-glb-file-open"
+    ],
+    "evidenceDirectory": "work/verification-v03/artcraft-source-1791987216634",
+    "testedVia": "Node/Electron executeJavaScript and capturePage inside actual offline host",
+    "reaStaticEvidence": {
+      "summary": "rea-artifact-summary.json",
+      "evidenceId": "ev_98f8ebba909323515010e5e3d9be7b132b390c9ff7dcf500bb01d41c45d98830",
+      "limitations": [
+        "CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.",
+        "Graph coverage is incomplete; unavailable facts remain explicit and must not be read as absence.",
+        "JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.",
+        "Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",
+        "Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.",
+        "Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code.",
+        "assets/index-BRNttWpU.js: Resource constraint during analyze_javascript_application: Owned JavaScript worker exhausted its heap while analyzing assets/index-BRNttWpU.js during semantic"
+      ]
+    },
+    "limits": [
+      "Not every original native timeline or animation format is covered by the smoke suite.",
+      "Free model transparency check is on an original synthetic figure, not a broad photo quality benchmark.",
+      "Cloud backends and paid generation remain unavailable."
+    ],
+    "nativeFileLayerRoundtripPassed": true
+  },
+  "supplementalNotices": {
+    "normalize-LICENSE.md": "https://raw.githubusercontent.com/necolas/normalize.css/8.0.1/LICENSE.md",
+    "three-dots-LICENSE": "https://raw.githubusercontent.com/nzbin/three-dots/v0.3.2/LICENSE",
+    "CC-BY-4.0.txt": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/CC-BY-4.0.txt",
+    "CarterOne-OFL.txt": "https://github.com/google/fonts/tree/main/ofl/carterone",
+    "ammo-LICENSE.txt": "https://github.com/kripken/ammo.js"
+  },
+  "localPatchSha256": "9a3013088a6854685b22559cc086918feb4801239ac714846f5e8c3f095ad919"
+}
