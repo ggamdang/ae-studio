@@ -74,7 +74,9 @@ function installNativeTools({ipcMain,dialog,shell,win,views,dataDir,getSaveFolde
     return reply.response===1;
   }});
   for(const [method,fn] of Object.entries({status:()=>ai.status(),configure:x=>ai.configure(x),connection:()=>ai.connection(),models:x=>ai.models(x),estimate:x=>ai.estimate(x),generate:x=>{localAI.resetProgress();return ai.generate(x);},jobs:()=>ai.jobs(),poll:x=>ai.poll(x),import:async id=>({ok:true,outputs:register(await ai.importResult(id),'ai-studio')}),
-    'local-status':()=>{const state=localAI.status();if(['failed','stopped'].includes(state.state))ai.endLocalJobs();return state;},
+    'local-status':()=>{const state=localAI.status();if(['failed','stopped'].includes(state.state))ai.endLocalJobs();return {...state,platform:process.platform,setup:require('./integrations/mac-ai-setup.cjs').status()};},
+    'local-install':options=>require('./integrations/mac-ai-setup.cjs').install(options),
+    'local-install-cancel':()=>require('./integrations/mac-ai-setup.cjs').cancel(),
     'local-start':async options=>{if(localAI.status().state!=='running')ai.endLocalJobs();const result=await localAI.start(options);ai.configure({provider:'comfyui',localMode:'bundled'});return result;},
     'local-stop':async()=>{await localAI.stop();ai.endLocalJobs();return localAI.status();},
     'local-cancel':async()=>{await localAI.cancel();ai.endLocalJobs();return {ok:true};},
@@ -84,7 +86,7 @@ function installNativeTools({ipcMain,dialog,shell,win,views,dataDir,getSaveFolde
   handle('ai-save-copy','ai-studio',async id=>{const item=results.get(id);if(!item||item.module!=='ai-studio')throw Error('Unknown result.');const reply=await dialog.showSaveDialog(win,{title:'Save generated image',defaultPath:path.join(getSaveFolder()||path.dirname(item.path),item.name)});if(reply.canceled)return {cancelled:true};if(path.resolve(reply.filePath)!==path.resolve(item.path))await fs.promises.copyFile(item.path,reply.filePath);return {ok:true};});
   handle('ai-artcraft','ai-studio',id=>{const item=results.get(id);if(!item||item.module!=='ai-studio'||path.extname(item.path)!=='.png')throw Error('Choose a generated PNG image.');return openArtcraftImage(item.path);});
   ipcMain.handle('tools:result',(event,id,mode)=>{const owner=views.get('pdf-tools')?.webContents===event.sender?'pdf-tools':'ai-studio';trusted(event,owner);const item=results.get(id);if(!item||item.module!==owner)throw Error('Unknown result.');if(!fs.existsSync(item.path))throw Error('This result has been moved or removed.');if(mode==='open')return openFiles([item.path],'Tool result');if(mode==='reveal'){shell.showItemInFolder(item.path);return {ok:true};}throw Error('Unknown result action.');});
-  return {selection,localAI,addPDFInputs:paths=>{if(controller)throw Error('A PDF operation is running.');const incoming=inputRecords(paths);selected.clear();order=[];for(const f of incoming){selected.set(f.id,f);order.push(f.id);}return selection();},cancel:()=>{controller?.abort();localAI.shutdown();}};
+  return {selection,localAI,addPDFInputs:paths=>{if(controller)throw Error('A PDF operation is running.');const incoming=inputRecords(paths);selected.clear();order=[];for(const f of incoming){selected.set(f.id,f);order.push(f.id);}return selection();},cancel:()=>{controller?.abort();localAI.shutdown();require('./integrations/mac-ai-setup.cjs').cancel();}};
 }
 module.exports={installNativeTools};
 

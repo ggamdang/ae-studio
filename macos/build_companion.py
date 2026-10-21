@@ -104,6 +104,12 @@ def main():
     for repo in json.loads((d/'pdf/language-docling-models.json').read_text()):
         for pin in repo['files']:fetch(pin,language/'docling-models'/pin['path'])
     run([lpy,d/'pdf/language_m2m_setup.py'],timeout=900)
+    # The conversion replaces its output directory; restore the model license.
+    for pin in json.loads((d/'pdf/language-downloads.json').read_text()):
+        if pin['path'].endswith('/LICENSE'):fetch(pin,language/pin['path'])
+    # Training weights are build inputs, not an extra 1.94 GB in each installation.
+    training=(d/'pdf/language-build').resolve()
+    if training.is_relative_to(d.resolve()) and training.is_dir():shutil.rmtree(training)
     # Actual bundle names come from mounted DMGs, not product-name assumptions.
     index=json.loads((BUILD/'native-index.json').read_text());apps=json.loads((d/'native-apps.json').read_text())
     for item in apps:item['bundleName']=index[item['id']]['bundleName']
@@ -113,12 +119,16 @@ def main():
     extensions=set(x for a in apps for x in a['extensions'])|{'hwp','hwpx','artcraft','glb','ppt','pps','pot','odp','ott','fodt','fods','fodp','wps','pptm','ppsm','potm','otp','xlt','xltx','xltm','ots'}
     info['CFBundleDocumentTypes']=[{'CFBundleTypeName':'AE Studio supported documents','CFBundleTypeRole':'Editor','LSHandlerRank':'Alternate','CFBundleTypeExtensions':sorted(extensions)}]
     info_path.write_bytes(plistlib.dumps(info))
-    # Ad-hoc signatures allow execution; they are not Apple publisher notarization.
-    run(['codesign','--force','--deep','--sign','-',app])
+    # Final ad-hoc signing is performed after tests stop modifying fixture files.
     source=SUITE/'Source';shutil.copytree(SOURCE,source/'AE Studio',ignore=shutil.ignore_patterns('node_modules','__pycache__','*.pyc','google-desktop.json'))
     shutil.copytree(ROOT,source/'macos-build',ignore=shutil.ignore_patterns('build','checks','__pycache__'))
     collect_sources(py,source/'PDF dependencies')
     fetch(LOCK['mupdf-source'],source/'PDF dependencies/mupdf-1.27.2-source.tar.gz')
+    for pin in json.loads((ROOT/'archive-source-manifest.json').read_text()):
+        if pin.get('url') and (pin.get('ecosystem')=='maven' or pin.get('component','').startswith(('veraPDF','Temurin'))):
+            fetch(pin,source/'Archive dependencies'/pathlib.Path(pin['file']).name)
+    shutil.copytree(ROOT/'notices',SUITE/'Third-party notices',dirs_exist_ok=True)
+    shutil.copy2(ROOT/'README.md',SUITE/'Read me.md')
     (BUILD/'runtime-downloads.json').write_text(json.dumps(RECORDS,indent=2))
     run([py,'-m','pip','freeze'],stdout=(BUILD/'pdf-resolved-lock.txt').open('w'))
     run([lpy,'-m','pip','freeze'],stdout=(BUILD/'language-resolved-lock.txt').open('w'))

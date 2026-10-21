@@ -2,8 +2,16 @@
 import hashlib,json,pathlib,plistlib,shutil,subprocess,tarfile
 ROOT=pathlib.Path(__file__).resolve().parent;BUILD=ROOT/'build';SUITE=BUILD/'AE Studio';DIST=ROOT.parent/'dist';DIST.mkdir(exist_ok=True)
 def run(args,**kw):return subprocess.run([str(a) for a in args],check=True,**kw)
-for report in [ROOT/'checks/exports/result.json',ROOT/'checks/companion/result.json']:
+for report in [ROOT/'checks/exports/result.json',ROOT/'checks/companion/result.json',ROOT/'checks/native-macos/result.json']:
     if not json.loads(report.read_text())['ok']:raise SystemExit('Release gate failed: '+str(report))
+app=SUITE/'AE Studio.app'
+# Remove only generated test/build material inside this freshly built bundle.
+for relative in ['Contents/Resources/app/pdf/language-build','Contents/Resources/app/pdf/language-fixtures']:
+    generated=(app/relative).resolve()
+    if not generated.is_relative_to(app.resolve()):raise RuntimeError('Unsafe cleanup path')
+    if generated.is_dir():shutil.rmtree(generated)
+run(['codesign','--force','--deep','--sign','-',app])
+run(['codesign','--verify','--deep','--strict',app])
 # Avoid bundle relocation: all apps stay together in one Applications folder.
 components=BUILD/'components.plist'
 run(['pkgbuild','--analyze','--root',SUITE,components])

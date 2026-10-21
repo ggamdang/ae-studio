@@ -1,5 +1,5 @@
 """Download verified upstream Mac applications without modifying their bundles."""
-import concurrent.futures, hashlib, json, pathlib, plistlib, shutil, subprocess, sys, tempfile, urllib.request, zipfile
+import concurrent.futures, hashlib, json, os, pathlib, plistlib, shutil, subprocess, sys, tempfile, urllib.request, zipfile
 ROOT=pathlib.Path(__file__).resolve().parent
 BUILD=ROOT/'build'; BUILD.mkdir(exist_ok=True)
 APPS=BUILD/'AE Studio'/'Apps'; APPS.mkdir(parents=True,exist_ok=True)
@@ -23,6 +23,10 @@ def stage(pin,archive):
         src=bundles[0]; target=APPS/src.name
         if target.exists():raise RuntimeError('Refusing to replace existing app: '+str(target))
         subprocess.run(['ditto',str(src),str(target)],check=True)
+        notices=BUILD/'AE Studio/Third-party notices'/pin['id'];notices.mkdir(parents=True,exist_ok=True)
+        # Preserve license files shipped beside the original app on its disk image.
+        for item in mount.iterdir():
+            if item.is_file() and any(word in item.name.upper() for word in ['LICENSE','NOTICE','ATTRIBUTION','OFL','COPYING']):shutil.copy2(item,notices/item.name)
         info=plistlib.loads((target/'Contents/Info.plist').read_bytes())
         executable=target/'Contents/MacOS'/info['CFBundleExecutable']
         _, cli_archive=download({'id':pin['id']+'-cli',**pin['cli']})
@@ -35,7 +39,17 @@ def stage(pin,archive):
         if len(clis)!=1:raise RuntimeError('Missing native CLI: '+pin['id'])
         cli=clis[0];cli.chmod(0o755)
         signature=subprocess.run(['codesign','--verify','--deep','--strict',str(target)],capture_output=True,text=True)
-        return pin['id'],{'bundle':str(target.resolve()),'bundleName':src.name,'executable':str(executable.resolve()),'cli':str(cli.resolve()),'identifier':info['CFBundleIdentifier'],'version':info.get('CFBundleShortVersionString'),'signatureValid':signature.returncode==0,'signatureDiagnostic':signature.stderr[:3000],'documentTypes':info.get('CFBundleDocumentTypes',[]),'importedTypes':info.get('UTImportedTypeDeclarations',[]),'exportedTypes':info.get('UTExportedTypeDeclarations',[])}
+        original_diagnostic=signature.stderr[:3000];metadata_removed=[]
+        if signature.returncode and 'resource fork, Finder information' in signature.stderr:
+            # Apple QA1940: only these packaging attributes invalidate signing.
+            # Preserve quarantine, all code, resources and the original signature.
+            for item in [target,*target.rglob('*')]:
+                if item.is_symlink():continue
+                for attribute in ['com.apple.FinderInfo','com.apple.ResourceFork']:
+                    if attribute in os.listxattr(item):
+                        os.removexattr(item,attribute);metadata_removed.append({'path':str(item.relative_to(target)),'attribute':attribute})
+            signature=subprocess.run(['codesign','--verify','--deep','--strict',str(target)],capture_output=True,text=True)
+        return pin['id'],{'bundle':str(target.resolve()),'bundleName':src.name,'executable':str(executable.resolve()),'cli':str(cli.resolve()),'identifier':info['CFBundleIdentifier'],'version':info.get('CFBundleShortVersionString'),'signatureValid':signature.returncode==0,'signatureDiagnostic':signature.stderr[:3000],'originalSignatureDiagnostic':original_diagnostic,'packagingMetadataRemoved':metadata_removed,'documentTypes':info.get('CFBundleDocumentTypes',[]),'importedTypes':info.get('UTImportedTypeDeclarations',[]),'exportedTypes':info.get('UTExportedTypeDeclarations',[])}
     finally:
         subprocess.run(['hdiutil','detach',str(mount)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         mount.rmdir()

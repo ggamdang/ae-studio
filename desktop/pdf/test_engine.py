@@ -30,7 +30,7 @@ class EngineTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.root = Path(tempfile.mkdtemp(prefix="pdf-engine-test-", dir=Path(__file__).resolve().parents[2] / "pdf-investigation"))
+        cls.root = Path(tempfile.mkdtemp(prefix="pdf-engine-test-"))
         cls.input = cls.root / "Unicode 한글 sample.pdf"
         with fitz.open() as doc:
             for i in range(3):

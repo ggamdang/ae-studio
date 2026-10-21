@@ -24,6 +24,10 @@ jobs:
         run: python3 macos/test_native_exports.py
       - name: Build Mac companion and offline document runtimes
         run: python3 macos/build_companion.py
+      - name: Bundle optional Mac local AI setup
+        run: python3 macos/build_local_ai.py
+      - name: Test all original editor windows
+        run: python3 macos/test_native_gui.py
       - name: Test Mac companion
         run: python3 macos/test_companion.py
       - name: Package and verify installation

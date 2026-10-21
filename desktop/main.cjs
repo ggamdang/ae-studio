@@ -170,6 +170,10 @@ async function openFiles(paths,source='Open'){
     }
   }catch(e){problems.push(e.message);}
   finally{opening=false;error=problems.join(' ');if(!results.some(r=>r.delivered)&&!error)openMessage='Opening cancelled.';emit();}
+  if(testMode&&process.env.STUDIO_TEST_MAC==='1'&&source==='Finder'){
+    await fsp.mkdir(testDir,{recursive:true});
+    await fsp.writeFile(path.join(testDir,'finder-event.json'),JSON.stringify({paths,results,error,source},null,2));
+  }
   return {state:publicState(),results,source};
 }
 function queueFiles(paths,source){
@@ -181,7 +185,8 @@ function queueFiles(paths,source){
   return run;
 }
 async function chooseFiles(){
-  const r=await dialog.showOpenDialog(win,{title:'Open in AE Studio',properties:['openFile','multiSelections'],filters:dialogFilters()});
+  const filters=macNative?[{name:'Supported files',extensions:[...new Set(macNative.formats().map(r=>r.extension))]},...macNative.catalog.map(m=>({name:m.name,extensions:m.extensions})),{name:'All files',extensions:['*']}]:dialogFilters();
+  const r=await dialog.showOpenDialog(win,{title:'Open in AE Studio',properties:['openFile','multiSelections'],filters});
   if(r.canceled)return {state:publicState(),results:[]};
   return queueFiles(r.filePaths,'Open dialog');
 }

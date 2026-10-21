@@ -6,7 +6,7 @@ complete Microsoft Office, Adobe Creative Cloud or Acrobat feature parity.
 
 | Repository | Role | Decision |
 |---|---|---|
-| [storytold Craft applications](https://getartcraft.com/apps) | Thirteen native document/creative editors | Preserve original signed Mac bundles and pinned versions; test actual import/export and opening. These are upstream alpha/development apps. |
+| [storytold Craft applications](https://getartcraft.com/apps) | Thirteen native document/creative editors | Preserve original Mac bundles and record their actual signature status and pinned versions; test actual import/export and opening. These are upstream alpha/development apps. |
 | [storytold/artcraft](https://github.com/storytold/artcraft) | Canvas and 3D workspace | Reuse the reviewed source adapter and asset allow-list. Private hosted services are not included. |
 | [LibreOffice/core](https://github.com/LibreOffice/core) | Legacy Office conversion | Bundle the original Mac conversion engine. No macro execution. Preserve source files and create new converted copies. |
 | [pymupdf/PyMuPDF](https://github.com/pymupdf/PyMuPDF) and [qpdf/qpdf](https://github.com/qpdf/qpdf) | PDF rendering, editing, encryption and structure | Retain existing tested engine. QPDF is used through pikepdf. Ship AGPL source/license materials. |

@@ -15,6 +15,9 @@ test('pdf-engine',[PY,D/'pdf/test_engine.py'])
 test('archive-signatures',[PY,D/'pdf/archive_test.py'])
 test('language-ocr-translation',[D/'pdf/runtime/language/python/bin/python3',D/'pdf/language_test.py'],timeout=1200)
 test('hangul-start',[D/'hangul-runtime/hwp','--version'])
-env={**os.environ,'STUDIO_TEST_MAC':'1','STUDIO_TEST_OUTPUT':str(QA/'gui'),'UNIFIED_STUDIO_DATA':str(QA/'profile')}
+fixtures=[ROOT/'checks/exports/outputs 한글'/name for name in ['document.docx','document.pdf','sheet.xlsx','slides.pptx']]
+env={**os.environ,'STUDIO_TEST_MAC':'1','STUDIO_TEST_OUTPUT':str(QA/'gui'),'UNIFIED_STUDIO_DATA':str(QA/'profile'),'AE_MAC_FIXTURES':json.dumps([str(p) for p in fixtures])}
 test('desktop-gui',[APP/'Contents/MacOS/Electron','--studio-test'],env=env,timeout=240)
+test('hangul-conversion',['node',ROOT/'test_hangul.cjs',D,ROOT/'fixtures',QA/'hangul'],timeout=180)
+test('google-helper-status',['node',ROOT/'test_google.cjs',D,QA/'google-helper'],timeout=600)
 raise SystemExit(0 if all(c['ok'] for c in checks) else 1)
