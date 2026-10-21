@@ -63,6 +63,8 @@ def collect_sources(py,target):
 def main():
     if sys.platform!='darwin':raise SystemExit('Build on macOS.')
     run(['npm','ci','--no-audit','--no-fund'],cwd=SOURCE)
+    electron_env={k:v for k,v in os.environ.items() if k!='ELECTRON_SKIP_BINARY_DOWNLOAD'}
+    run(['node','node_modules/electron/install.js'],cwd=SOURCE,env=electron_env)
     app=SUITE/'AE Studio.app'
     if app.exists():raise RuntimeError('Build destination already exists; use a fresh CI checkout.')
     run(['ditto',SOURCE/'node_modules/electron/dist/Electron.app',app])
@@ -107,7 +109,7 @@ def main():
     for item in apps:item['bundleName']=index[item['id']]['bundleName']
     (d/'native-apps.json').write_text(json.dumps(apps,indent=2))
     info_path=app/'Contents/Info.plist';info=plistlib.loads(info_path.read_bytes())
-    info.update(CFBundleDisplayName='AE Studio',CFBundleName='AE Studio',CFBundleIdentifier='com.aeeducation.aestudio',CFBundleShortVersionString='0.9.1',CFBundleVersion='0.9.1',LSMinimumSystemVersion='13.0')
+    info.update(CFBundleDisplayName='AE Studio',CFBundleName='AE Studio',CFBundleIdentifier='com.aeeducation.aestudio',CFBundleShortVersionString='0.9.1',CFBundleVersion='0.9.1',LSMinimumSystemVersion='15.0')
     extensions=set(x for a in apps for x in a['extensions'])|{'hwp','hwpx','artcraft','glb','ppt','pps','pot','odp','ott','fodt','fods','fodp','wps','pptm','ppsm','potm','otp','xlt','xltx','xltm','ots'}
     info['CFBundleDocumentTypes']=[{'CFBundleTypeName':'AE Studio supported documents','CFBundleTypeRole':'Editor','LSHandlerRank':'Alternate','CFBundleTypeExtensions':sorted(extensions)}]
     info_path.write_bytes(plistlib.dumps(info))

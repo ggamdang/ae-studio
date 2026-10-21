@@ -35,7 +35,7 @@ def stage(pin,archive):
         if len(clis)!=1:raise RuntimeError('Missing native CLI: '+pin['id'])
         cli=clis[0];cli.chmod(0o755)
         signature=subprocess.run(['codesign','--verify','--deep','--strict',str(target)],capture_output=True,text=True)
-        return pin['id'],{'bundle':str(target.resolve()),'bundleName':src.name,'executable':str(executable.resolve()),'cli':str(cli.resolve()),'identifier':info['CFBundleIdentifier'],'version':info.get('CFBundleShortVersionString'),'signatureValid':signature.returncode==0,'documentTypes':info.get('CFBundleDocumentTypes',[]),'importedTypes':info.get('UTImportedTypeDeclarations',[]),'exportedTypes':info.get('UTExportedTypeDeclarations',[])}
+        return pin['id'],{'bundle':str(target.resolve()),'bundleName':src.name,'executable':str(executable.resolve()),'cli':str(cli.resolve()),'identifier':info['CFBundleIdentifier'],'version':info.get('CFBundleShortVersionString'),'signatureValid':signature.returncode==0,'signatureDiagnostic':signature.stderr[:3000],'documentTypes':info.get('CFBundleDocumentTypes',[]),'importedTypes':info.get('UTImportedTypeDeclarations',[]),'exportedTypes':info.get('UTExportedTypeDeclarations',[])}
     finally:
         subprocess.run(['hdiutil','detach',str(mount)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         mount.rmdir()

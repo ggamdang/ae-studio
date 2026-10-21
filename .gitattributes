@@ -1,0 +1,7 @@
+*.py text eol=lf
+*.cjs text eol=lf
+*.yml text eol=lf
+*.sh text eol=lf
+desktop/artcraft/upstream/** -text
+desktop/artcraft/renderer/** -text
+desktop/artcraft/notices/** -text

@@ -9,32 +9,6 @@ concurrency:
   group: ae-macos-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  native:
-    # Standard public-repository runner only. Never use paid larger runners.
-    if: github.event.repository.private == false
-    runs-on: macos-15
-    timeout-minutes: 55
-    steps:
-      - uses: actions/checkout@v4
-      - name: Verify execution platform
-        run: |
-          sw_vers
-          uname -m
-          test "$(uname -m)" = arm64
-      - name: Stage verified native applications
-        run: python3 macos/stage_native.py
-      - name: Test native import, export and reopening
-        run: python3 macos/test_native_exports.py
-      - name: Save diagnostic reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: mac-native-verification
-          path: |
-            macos/build/native-index.json
-            macos/checks/
-          retention-days: 3
-          if-no-files-found: error
   companion:
     if: github.event.repository.private == false
     runs-on: macos-15
@@ -46,10 +20,22 @@ jobs:
           node-version: '24'
       - name: Stage native editors
         run: python3 macos/stage_native.py
+      - name: Test original native import and export
+        run: python3 macos/test_native_exports.py
       - name: Build Mac companion and offline document runtimes
         run: python3 macos/build_companion.py
       - name: Test Mac companion
         run: python3 macos/test_companion.py
+      - name: Package and verify installation
+        run: python3 macos/package.py
+      - name: Save shareable installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: AE-Studio-Mac-Apple-Silicon-Preview
+          path: dist/
+          retention-days: 7
+          compression-level: 0
+          if-no-files-found: error
       - name: Save build diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -57,6 +43,7 @@ jobs:
           name: mac-companion-verification
           path: |
             macos/checks/
+            macos/build/native-index.json
             macos/build/runtime-downloads.json
             macos/build/*-resolved-lock.txt
           retention-days: 3

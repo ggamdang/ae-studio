@@ -13,6 +13,7 @@ def test(name,args,env=None,timeout=900):
     print(name,checks[-1],flush=True)
 test('pdf-engine',[PY,D/'pdf/test_engine.py'])
 test('archive-signatures',[PY,D/'pdf/archive_test.py'])
+test('language-ocr-translation',[D/'pdf/runtime/language/python/bin/python3',D/'pdf/language_test.py'],timeout=1200)
 test('hangul-start',[D/'hangul-runtime/hwp','--version'])
 env={**os.environ,'STUDIO_TEST_MAC':'1','STUDIO_TEST_OUTPUT':str(QA/'gui'),'UNIFIED_STUDIO_DATA':str(QA/'profile')}
 test('desktop-gui',[APP/'Contents/MacOS/Electron','--studio-test'],env=env,timeout=240)
