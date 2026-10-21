@@ -5,15 +5,17 @@ async function run({win,openEditor,openFiles,views,publicState,app,testDir,failu
  try{
   const state=publicState();assert.equal(state.modules.filter(m=>require('./mac-native.cjs').native(m.id)).length,13);assert(state.modules.filter(m=>require('./mac-native.cjs').native(m.id)).every(m=>m.installed));results.push('13 native apps discoverable');
   const js=code=>win.webContents.executeJavaScript(code);
+  const captureShell=async name=>{await js('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');await new Promise(r=>setTimeout(r,200));await fs.writeFile(path.join(testDir,name),(await win.webContents.capturePage()).toPNG());};
   const waitFor=async code=>{const until=Date.now()+15000;while(Date.now()<until){if(await js(code))return;await new Promise(r=>setTimeout(r,100));}throw Error('Shell did not become ready: '+code+'; '+JSON.stringify(failures.filter(f=>f.host==='shell')));};
   await waitFor(`document.querySelectorAll('#tool-grid .tool-card').length===${state.modules.length} && document.querySelectorAll('#navigation .nav-item').length===${state.modules.length}`);
   assert.equal(await js("document.querySelector('header #choose-folder')===null"),true);
   await fs.mkdir(testDir,{recursive:true});
   for(const theme of ['light','dark']){
-   await js(`document.querySelector('[data-theme="${theme}"]').click()`);
+   await js(`document.querySelector('button[data-theme="${theme}"]').click()`);
    await waitFor(`document.documentElement.dataset.theme==='${theme}'`);
+   assert.equal(await js("getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()"),theme==='dark'?'#13161d':'#f7f8fa');
    assert.equal(await js('document.documentElement.scrollWidth<=innerWidth'),true);
-   await fs.writeFile(path.join(testDir,'home-'+theme+'.png'),(await win.webContents.capturePage()).toPNG());
+   await captureShell('home-'+theme+'.png');
   }
   await js("document.getElementById('toggle-sidebar').click();document.getElementById('toggle-toolbar').click()");
   await waitFor("document.body.classList.contains('sidebar-collapsed')&&document.body.classList.contains('toolbar-collapsed')");
@@ -21,7 +23,7 @@ async function run({win,openEditor,openFiles,views,publicState,app,testDir,failu
   assert.deepEqual(saved.preferences,{theme:'dark',sidebarCollapsed:true,toolbarCollapsed:true});
   await js("document.getElementById('settings').click()");
   await waitFor("document.getElementById('settings-dialog').open&&document.querySelectorAll('#format-table tbody tr').length>170");
-  await fs.writeFile(path.join(testDir,'settings-dark.png'),(await win.webContents.capturePage()).toPNG());
+  await captureShell('settings-dark.png');
   await js("document.getElementById('close-settings').click();window.studio.appearance({theme:'system',sidebarCollapsed:false,toolbarCollapsed:false})");
   await waitFor("!document.body.classList.contains('sidebar-collapsed')&&!document.body.classList.contains('toolbar-collapsed')");
   assert.deepEqual(failures.filter(f=>f.host==='shell'),[]);

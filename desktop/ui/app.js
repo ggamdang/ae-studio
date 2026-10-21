@@ -1,4 +1,5 @@
 let state,filter='All';
+const commandKey=/Mac/.test(navigator.platform)?'⌘':'Ctrl';
 const $=id=>document.getElementById(id);
 function button(text,handler,className){const el=document.createElement('button');el.textContent=text;if(className)el.className=className;el.onclick=handler;return el;}
 async function open(id){const module=state.modules.find(m=>m.id===id);if(module.available===false){$('status-text').textContent=module.description;return;}if(!module.installed){$('setup').scrollIntoView({behavior:'smooth'});$('status-text').textContent='Download the editors to finish setup.';return;}$('loading').hidden=false;$('loading-name').textContent='Opening '+module.name+'…';try{render(await window.studio.open(id));}catch(e){$('status-text').textContent=e.message;}$('loading').hidden=true;}
@@ -40,8 +41,8 @@ window.studio.installation().then(info=>{
 function renderAppearance(){
  const p=state.preferences||{theme:'system'};document.documentElement.dataset.theme=state.resolvedTheme||'light';
  document.body.classList.toggle('sidebar-collapsed',!!p.sidebarCollapsed);document.body.classList.toggle('toolbar-collapsed',!!p.toolbarCollapsed);document.body.classList.toggle('in-editor',!!state.active);
- $('toggle-sidebar').setAttribute('aria-expanded',String(!p.sidebarCollapsed));$('toggle-sidebar').title=(p.sidebarCollapsed?'Expand':'Collapse')+' sidebar (Ctrl+Shift+B)';
- $('toggle-toolbar').setAttribute('aria-expanded',String(!p.toolbarCollapsed));$('toggle-toolbar').title=(p.toolbarCollapsed?'Expand':'Collapse')+' toolbar (Ctrl+Shift+T)';$('toggle-toolbar').setAttribute('aria-label',$('toggle-toolbar').title);
+ $('toggle-sidebar').setAttribute('aria-expanded',String(!p.sidebarCollapsed));$('toggle-sidebar').title=(p.sidebarCollapsed?'Expand':'Collapse')+` sidebar (${commandKey}+Shift+B)`;
+ $('toggle-toolbar').setAttribute('aria-expanded',String(!p.toolbarCollapsed));$('toggle-toolbar').title=(p.toolbarCollapsed?'Expand':'Collapse')+` toolbar (${commandKey}+Shift+T)`;$('toggle-toolbar').setAttribute('aria-label',$('toggle-toolbar').title);
  $('sidebar-setting').checked=!!p.sidebarCollapsed;$('toolbar-setting').checked=!!p.toolbarCollapsed;
  document.querySelectorAll('[data-theme]').forEach(b=>{b.classList.toggle('selected',b.dataset.theme===p.theme);b.setAttribute('aria-pressed',String(b.dataset.theme===p.theme));});
  $('theme-toggle').title='Appearance: '+p.theme+' — click to switch';$('theme-toggle').innerHTML=studioIcon(state.resolvedTheme==='dark'?'moon':'sun');

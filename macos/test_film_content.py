@@ -13,9 +13,15 @@ assert actual.shape==expected.shape==(120,160,3), 'Export dimensions changed'
 assert float(expected.std())>20, 'Fixture must contain visible variation'
 still_error=float(np.abs(expected-actual).mean())
 assert still_error<=1, f'Still-frame pixels differ: {still_error}'
-capture=cv2.VideoCapture(str(video));errors=[]
+# The isolated Mac probe produced a byte-identical clip to Windows. Apple's
+# decoder reproduced its BT.709 colors; this OpenCV wheel's FFmpeg backend did
+# not. Use the platform's native decoder explicitly, retaining the strict oracle.
+requested=cv2.CAP_AVFOUNDATION if sys.platform=='darwin' else cv2.CAP_FFMPEG
+capture=cv2.VideoCapture(str(video),requested);errors=[]
 try:
     assert capture.isOpened(), 'Independent decoder cannot open MP4'
+    backend=capture.getBackendName()
+    assert backend==('AVFOUNDATION' if sys.platform=='darwin' else 'FFMPEG')
     fps=capture.get(cv2.CAP_PROP_FPS)
     assert abs(fps-29.97)<0.02, f'Unexpected frame rate: {fps}'
     while True:
@@ -31,7 +37,7 @@ try:
 finally:capture.release()
 assert len(errors)==9, f'Expected nine decoded frames, found {len(errors)}'
 assert hashlib.sha256(source.read_bytes()).hexdigest()==before
-report={'ok':True,'dimensions':[160,120],'decodedFrames':len(errors),'fps':fps,
+report={'ok':True,'decoder':backend,'videoSHA256':hashlib.sha256(video.read_bytes()).hexdigest(),'dimensions':[160,120],'decodedFrames':len(errors),'fps':fps,
         'stillMeanAbsoluteError':still_error,'videoMeanAbsoluteErrors':errors,
         'originalPreserved':True}
 (out/'result.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
