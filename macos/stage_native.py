@@ -43,11 +43,9 @@ def stage(pin,archive):
         if signature.returncode and 'resource fork, Finder information' in signature.stderr:
             # Apple QA1940: only these packaging attributes invalidate signing.
             # Preserve quarantine, all code, resources and the original signature.
-            for item in [target,*target.rglob('*')]:
-                if item.is_symlink():continue
-                for attribute in ['com.apple.FinderInfo','com.apple.ResourceFork']:
-                    if attribute in os.listxattr(item):
-                        os.removexattr(item,attribute);metadata_removed.append({'path':str(item.relative_to(target)),'attribute':attribute})
+            for attribute in ['com.apple.FinderInfo','com.apple.ResourceFork']:
+                cleaned=subprocess.run(['xattr','-dr',attribute,str(target)],capture_output=True,text=True)
+                metadata_removed.append({'attribute':attribute,'exit':cleaned.returncode})
             signature=subprocess.run(['codesign','--verify','--deep','--strict',str(target)],capture_output=True,text=True)
         return pin['id'],{'bundle':str(target.resolve()),'bundleName':src.name,'executable':str(executable.resolve()),'cli':str(cli.resolve()),'identifier':info['CFBundleIdentifier'],'version':info.get('CFBundleShortVersionString'),'signatureValid':signature.returncode==0,'signatureDiagnostic':signature.stderr[:3000],'originalSignatureDiagnostic':original_diagnostic,'packagingMetadataRemoved':metadata_removed,'documentTypes':info.get('CFBundleDocumentTypes',[]),'importedTypes':info.get('UTImportedTypeDeclarations',[]),'exportedTypes':info.get('UTExportedTypeDeclarations',[])}
     finally:

@@ -1,9 +1,11 @@
 """Install only the verified bundled runtime and pinned optional image model."""
-import hashlib,json,os,pathlib,shutil,sys,tarfile,tempfile,urllib.request
+import hashlib,json,os,pathlib,shutil,signal,sys,tarfile,tempfile,urllib.request
 HERE=pathlib.Path(__file__).resolve().parent
 def digest(file):
     with file.open('rb') as stream:return hashlib.file_digest(stream,'sha256').hexdigest()
 def main():
+    def cancelled(signum,frame):raise SystemExit('Local AI setup cancelled.')
+    signal.signal(signal.SIGTERM,cancelled)
     if sys.platform!='darwin':raise RuntimeError('This setup is for Apple-silicon Mac.')
     root=pathlib.Path.home()/'Library/Application Support/AE Studio';root.mkdir(parents=True,exist_ok=True)
     target=root/'Local AI'

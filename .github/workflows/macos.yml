@@ -23,12 +23,17 @@ jobs:
       - name: Test original native import and export
         run: python3 macos/test_native_exports.py
       - name: Build Mac companion and offline document runtimes
+        id: bundle
         run: python3 macos/build_companion.py
+      - name: Write the format guide
+        run: node macos/format_guide.cjs
       - name: Bundle optional Mac local AI setup
         run: python3 macos/build_local_ai.py
       - name: Test all original editor windows
+        if: ${{ !cancelled() && steps.bundle.outcome == 'success' }}
         run: python3 macos/test_native_gui.py
       - name: Test Mac companion
+        if: ${{ !cancelled() && steps.bundle.outcome == 'success' }}
         run: python3 macos/test_companion.py
       - name: Package and verify installation
         run: python3 macos/package.py
