@@ -1,0 +1,12 @@
+**/node_modules/
+**/__pycache__/
+**/*.pyc
+macos/build/
+macos/checks/
+dist/
+*.log
+desktop/pdf/runtime/
+desktop/provider-runtime/
+desktop/hangul-runtime/
+desktop/local-ai/runtime/
+desktop/local-ai/models/

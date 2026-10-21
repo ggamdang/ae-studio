@@ -1,0 +1,132 @@
+[
+  {
+    "id": "photocraft",
+    "version": "v0.10.0",
+    "url": "https://github.com/storytold/photocraft/releases/download/v0.10.0/photocraft-0.10.0-macos-universal.dmg",
+    "sha256": "2f2e21a0119e8e63b2b2f93d238817b3727af88720ab9e2b6deb1458927a3b1f",
+    "cli": {
+      "url": "https://github.com/storytold/photocraft/releases/download/v0.10.0/photocraft-cli-0.10.0-macos-universal.zip",
+      "sha256": "57b2bfa6514beb9f85177fbb6832f8aa3aebee08561d78d54a3182c404220927"
+    }
+  },
+  {
+    "id": "vectorcraft",
+    "version": "v0.13.1",
+    "url": "https://github.com/storytold/vectorcraft/releases/download/v0.13.1/vectorcraft-0.13.1-macos-universal.dmg",
+    "sha256": "b932c38927a007f30218c4ed404a5c48a3f41674d6e4c560a662c7ffdbdb706f",
+    "cli": {
+      "url": "https://github.com/storytold/vectorcraft/releases/download/v0.13.1/vectorcraft-cli-0.13.1-macos-universal.zip",
+      "sha256": "fc2c1f0163a7de37904556ee1c56d726d9ee738accd3c9dfc2f913d6ae2459fc"
+    }
+  },
+  {
+    "id": "filmcraft",
+    "version": "v0.9.0",
+    "url": "https://github.com/storytold/filmcraft/releases/download/v0.9.0/filmcraft-0.9.0-macos-universal.dmg",
+    "sha256": "d654a23bbd039561a69bc5530203769040ca4961e228245abb843752526d2124",
+    "cli": {
+      "url": "https://github.com/storytold/filmcraft/releases/download/v0.9.0/filmcraft-cli-0.9.0-macos-universal.zip",
+      "sha256": "793754cf8c9faa2a2272c5462533fac94d71d07a9abfb9fa29d286fd7cd70d0b"
+    }
+  },
+  {
+    "id": "lightcraft",
+    "version": "v0.9.1",
+    "url": "https://github.com/storytold/lightcraft/releases/download/v0.9.1/lightcraft-0.9.1-macos-universal.dmg",
+    "sha256": "5e3fde7755d0fd0fa91114fc58ef51093a81b6177dcd9aece0142b4ec10e1c5a",
+    "cli": {
+      "url": "https://github.com/storytold/lightcraft/releases/download/v0.9.1/lightcraft-cli-0.9.1-macos-universal.zip",
+      "sha256": "d2b6e60050f0266193162779676a4194f5ffc4ec5fd9f9e818f8ec66b2e70c8c"
+    }
+  },
+  {
+    "id": "pdfcraft",
+    "version": "v0.9.0",
+    "url": "https://github.com/storytold/pdfcraft/releases/download/v0.9.0/pdfcraft-0.9.0-macos-universal.dmg",
+    "sha256": "116738045a68463eb1a465e6eaef2266902aac69aa1a15e4a1c1472c31d8abe9",
+    "cli": {
+      "url": "https://github.com/storytold/pdfcraft/releases/download/v0.9.0/pdfcraft-cli-0.9.0-macos-universal.zip",
+      "sha256": "c20b8ced630417d47042ee37282fdb8362a29ebbc0b0bec3f4f635d0e28545f0"
+    }
+  },
+  {
+    "id": "effectcraft",
+    "version": "v0.11.1",
+    "url": "https://github.com/storytold/effectcraft/releases/download/v0.11.1/effectcraft-0.11.1-macos-universal.dmg",
+    "sha256": "73471a98b510596bcca96c6c055665b36ebcf619d3937c3e246d5249ad046cf4",
+    "cli": {
+      "url": "https://github.com/storytold/effectcraft/releases/download/v0.11.1/effectcraft-cli-0.11.1-macos-universal.zip",
+      "sha256": "8eae2e1e9c13e03d1bc2460501a90d43fc570b37e9b386294c0720eb12aad0f0"
+    }
+  },
+  {
+    "id": "designcraft",
+    "version": "v0.9.0",
+    "url": "https://github.com/storytold/designcraft/releases/download/v0.9.0/designcraft-0.9.0-macos-universal.dmg",
+    "sha256": "7fe7578040fb1b340b063d513b62cf7e53335274453327b287998221bb52768e",
+    "cli": {
+      "url": "https://github.com/storytold/designcraft/releases/download/v0.9.0/designcraft-cli-0.9.0-macos-universal.zip",
+      "sha256": "1c11a863755b9eb38209c8521bd46c42888260179f016a125b3ba5d293c0cb84"
+    }
+  },
+  {
+    "id": "figcraft",
+    "version": "v0.7.0",
+    "url": "https://github.com/storytold/figcraft/releases/download/v0.7.0/figcraft-0.7.0-macos-universal.dmg",
+    "sha256": "161283ed574f078ee2a2249c3d07e059bc88e4881c2e08217b57df1eed60225d",
+    "cli": {
+      "url": "https://github.com/storytold/figcraft/releases/download/v0.7.0/figcraft-cli-0.7.0-macos-universal.zip",
+      "sha256": "5e7bea01c9f33d13d2ad803dfd10b5f0b1815e124870db09391d1c360a58e893"
+    }
+  },
+  {
+    "id": "wordcraft",
+    "version": "v0.8.0",
+    "url": "https://github.com/storytold/wordcraft/releases/download/v0.8.0/wordcraft-0.8.0-macos-universal.dmg",
+    "sha256": "9c7c058e4bc0ea3dd4e7f350e934b5e5ff5798723937f382c77478a6978f89e3",
+    "cli": {
+      "url": "https://github.com/storytold/wordcraft/releases/download/v0.8.0/wordcraft-cli-0.8.0-macos-universal.zip",
+      "sha256": "931f2277a357e7d77266ddceea565450b102ca7bf9e0634821162f7bab616dbe"
+    }
+  },
+  {
+    "id": "soundcraft",
+    "version": "v0.8.0",
+    "url": "https://github.com/storytold/soundcraft/releases/download/v0.8.0/soundcraft-0.8.0-macos-universal.dmg",
+    "sha256": "4221c313d25abc1aaca51d1495a19735b5e3c240a6820c566779c6e0b4c35320",
+    "cli": {
+      "url": "https://github.com/storytold/soundcraft/releases/download/v0.8.0/soundcraft-cli-0.8.0-macos-universal.zip",
+      "sha256": "41852f04159d64d62054a9d89b35fd9177eecdfdb53b5c8b52887d31dc4cef71"
+    }
+  },
+  {
+    "id": "deckcraft",
+    "version": "v0.8.0",
+    "url": "https://github.com/storytold/deckcraft/releases/download/v0.8.0/deckcraft-0.8.0-macos-universal.dmg",
+    "sha256": "81ee3158cbb550951faf89888bf7f0ea296fc233593aecfc3f41c7d9dce88542",
+    "cli": {
+      "url": "https://github.com/storytold/deckcraft/releases/download/v0.8.0/deckcraft-cli-0.8.0-macos-universal.zip",
+      "sha256": "1093646863b659c0a40d919cb898d9d7c7a4710e488b4207540d17887e187ed0"
+    }
+  },
+  {
+    "id": "cadcraft",
+    "version": "v0.8.0",
+    "url": "https://github.com/storytold/cadcraft/releases/download/v0.8.0/cadcraft-0.8.0-macos-universal.dmg",
+    "sha256": "518c8f38df85112ae37b62778d6b4b4d3e85dbf922cac5737d4765d508b77ee1",
+    "cli": {
+      "url": "https://github.com/storytold/cadcraft/releases/download/v0.8.0/cadcraft-cli-0.8.0-macos-universal.zip",
+      "sha256": "0647286d06e2bf5da9fd1303f481966962ad224b57b4fa7adf2087a1e387e30b"
+    }
+  },
+  {
+    "id": "gridcraft",
+    "version": "v0.8.0",
+    "url": "https://github.com/storytold/gridcraft/releases/download/v0.8.0/gridcraft-0.8.0-macos-universal.dmg",
+    "sha256": "260622fc0e0b18cc88162f0c2294759b58f8a32efa43ca6bf569e8b48aee2a23",
+    "cli": {
+      "url": "https://github.com/storytold/gridcraft/releases/download/v0.8.0/gridcraft-cli-0.8.0-macos-universal.zip",
+      "sha256": "564f7d087b880b7f16aa60ae50a1cbe9d37b4ed449eb29b2646ea584479bab07"
+    }
+  }
+]

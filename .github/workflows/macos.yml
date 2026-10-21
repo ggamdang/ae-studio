@@ -1,0 +1,37 @@
+name: AE Studio macOS verification
+on:
+  push:
+    branches: [mac-port]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ae-macos-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native:
+    # Standard public-repository runner only. Never use paid larger runners.
+    if: github.event.repository.private == false
+    runs-on: macos-15
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify execution platform
+        run: |
+          sw_vers
+          uname -m
+          test "$(uname -m)" = arm64
+      - name: Stage verified native applications
+        run: python3 macos/stage_native.py
+      - name: Test native import, export and reopening
+        run: python3 macos/test_native_exports.py
+      - name: Save diagnostic reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac-native-verification
+          path: |
+            macos/build/native-index.json
+            macos/checks/
+          retention-days: 3
+          if-no-files-found: error
