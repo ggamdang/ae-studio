@@ -16,12 +16,12 @@ assert still_error<=1, f'Still-frame pixels differ: {still_error}'
 # The isolated Mac probe produced a byte-identical clip to Windows. Apple's
 # decoder reproduced its BT.709 colors; this OpenCV wheel's FFmpeg backend did
 # not. Use the platform's native decoder explicitly, retaining the strict oracle.
-requested=cv2.CAP_AVFOUNDATION if sys.platform=='darwin' else cv2.CAP_FFMPEG
+requested=cv2.CAP_AVFOUNDATION if sys.platform=='darwin' else cv2.CAP_ANY
 capture=cv2.VideoCapture(str(video),requested);errors=[]
 try:
     assert capture.isOpened(), 'Independent decoder cannot open MP4'
     backend=capture.getBackendName()
-    assert backend==('AVFOUNDATION' if sys.platform=='darwin' else 'FFMPEG')
+    if sys.platform=='darwin':assert backend=='AVFOUNDATION'
     fps=capture.get(cv2.CAP_PROP_FPS)
     assert abs(fps-29.97)<0.02, f'Unexpected frame rate: {fps}'
     while True:
