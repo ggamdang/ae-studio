@@ -216,6 +216,8 @@ def _pdfa(action, path, options, job, password):
             details, raw = _validate_pdfa(candidate, profile, job)
             if not details["conforms"]:
                 issues = "; ".join(f"{r['clause']}: {r['description'][:160]}" for r in details["failures"][:3])
+                if any(r.get("clause") == "6.2.11.5" for r in details["failures"]):
+                    _error("PDFA_NONCOMPLIANT", "The converted copy's embedded font widths failed PDF/A validation. Try exporting a new PDF from the original document and converting that copy. No archival output was accepted; the original is unchanged.")
                 _error("PDFA_NONCOMPLIANT", "The converted copy failed veraPDF conformance checks; no PDF/A output was accepted. " + issues)
             target = job.target(f"archive-pdfa-{profile}.pdf")
             shutil.copyfile(candidate, target)

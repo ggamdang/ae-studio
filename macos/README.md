@@ -14,6 +14,8 @@ For local image generation, open AI Studio, read and accept the model license, t
 
 The format guide lists routing, conversion and limitations. Verification contains actual automated results from a GitHub-hosted Mac. Personal-account sign-in, a physical Mac's Metal image generation, printers, and real network/cloud shares require testing on the target device. Do not infer these from the automated checks.
 
+PDF/A conversion accepts a copy only after veraPDF validates it. A WordCraft-generated PDF in testing exposed an embedded-font width mismatch during conversion; it was correctly rejected, with the original preserved. Some ordinary PDFs therefore cannot be converted by this engine. Re-exporting from the original document may help; do not treat a rejected copy as an archival PDF.
+
 Source and third-party notices accompany the software. AE Studio source is AGPL-3.0-or-later. Other components retain their own licenses. Original Craft marks identify their authors and do not imply that they endorse AE Studio. Preserve Source and Third-party notices when sharing. This package is not a commercial rights-clearance opinion.
 
 To remove the suite, quit its apps and move /Applications/AE Studio to Trash. Personal settings and local AI downloads remain in ~/Library/Application Support/AE Studio; remove them separately only if you no longer need them. Documents are not deleted.
