@@ -45,15 +45,14 @@ jobs:
           retention-days: 7
           compression-level: 0
           if-no-files-found: error
+      - name: Collect shareable diagnostics
+        if: always()
+        run: python3 macos/diagnostics.py
       - name: Save build diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mac-companion-verification
-          path: |
-            macos/checks/
-            macos/build/native-index.json
-            macos/build/runtime-downloads.json
-            macos/build/*-resolved-lock.txt
+          path: macos/diagnostics/
           retention-days: 3
           if-no-files-found: warn

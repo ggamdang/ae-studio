@@ -9,9 +9,11 @@ async function run({win,openEditor,openFiles,views,publicState,app,testDir}){
   const shot=await win.webContents.capturePage();await fs.mkdir(testDir,{recursive:true});await fs.writeFile(path.join(testDir,'home.png'),shot.toPNG());
   const toolsShot=await wc.capturePage();await fs.writeFile(path.join(testDir,'pdf-tools.png'),toolsShot.toPNG());
   await openEditor('artcraft');const art=views.get('artcraft').webContents;
-  const deadline=Date.now()+45000;let artReady=false;
-  while(Date.now()<deadline){artReady=await art.executeJavaScript('Boolean(document.querySelector("canvas") && document.body.innerText.trim().length>20)');if(artReady)break;await new Promise(r=>setTimeout(r,500));}
-  assert(artReady,'ArtCraft must render a canvas and controls, not only a page title');results.push('ArtCraft canvas and controls load');
+  const artResult=await require('./artcraft/smoke.cjs').run({contents:art,testDir:path.join(testDir,'artcraft-workflows')});
+  assert.equal(artResult.passed,true,artResult.error);results.push('ArtCraft canvas, cutout, 3D, pose, export and project roundtrip');
+  for(const file of [path.join(testDir,'artcraft-workflows/roundtrip.artcraft'),path.join(__dirname,'artcraft/renderer/local-assets/mannequin.glb')]){
+   const result=await openFiles([file],'ArtCraft file-opening test');assert(result.results.some(r=>r.delivered),result.state.error);results.push('ArtCraft global import '+path.extname(file));
+  }
   await fs.writeFile(path.join(testDir,'artcraft.png'),(await art.capturePage()).toPNG());
   if(process.env.AE_MAC_FIXTURES){
    const fixtures=JSON.parse(process.env.AE_MAC_FIXTURES);

@@ -30,7 +30,7 @@ $('windows-defaults').onclick=()=>window.studio.windowsDefaults().catch(showFail
 $('user-data').onclick=()=>window.studio.userData().catch(showFailure);
 window.studio.installation().then(info=>{
   $('registration-help').hidden=info.installed;
-  if(info.platform==='darwin'){$('windows-defaults').textContent='How to choose a default app';$('installation-note').textContent='AE Studio and its editors are available through Finder Open With. To change a default, select a file in Finder, choose Get Info, then Open with and Change All. Existing defaults are preserved.';$('local-ai-note').textContent=info.localAI?'Local AI is installed.':'Local AI is a separate optional Mac add-on. You can also connect to an existing local ComfyUI server.';return;}
+  if(info.platform==='darwin'){$('windows-defaults').textContent='How to choose a default app';$('installation-note').textContent='AE Studio and its editors are available through Finder Open With. To change a default, select a file in Finder, choose Get Info, then Open with and Change All. Existing defaults are preserved.';$('local-ai-note').textContent=info.localAI?'Local AI is installed.':'Open AI Studio to set up the free local model, or connect to an existing local ComfyUI server.';return;}
   $('installation-note').textContent=info.installed
     ? 'The installer added the file types you selected to Windows Open with. Choose your defaults below. Run Setup again to change the registered categories or add local AI. Your personal projects and settings are kept separately and preserved when you uninstall.'
     : 'For this portable copy, register Open with using the included script before choosing defaults. Keep the application folder in a permanent location.';

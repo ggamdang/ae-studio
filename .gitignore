@@ -3,6 +3,7 @@
 **/*.pyc
 macos/build/
 macos/checks/
+macos/diagnostics/
 dist/
 *.log
 desktop/pdf/runtime/

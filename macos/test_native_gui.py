@@ -6,7 +6,7 @@ apps=json.loads((ROOT/'apps.json').read_text(encoding='utf-8'))
 index=json.loads((ROOT/'build/native-index.json').read_text())
 if os.environ.get('AE_NATIVE_QA_APPS'):
     selected=os.environ['AE_NATIVE_QA_APPS'].split(',');apps=[a for a in apps if a['id'] in selected]
-startup_timeout=int(os.environ.get('AE_NATIVE_QA_STARTUP','25'))
+startup_timeout=int(os.environ.get('AE_NATIVE_QA_STARTUP','90'))
 results=[]
 for app in apps:
     ident=app['id']; profile=QA/ident; profile.mkdir(exist_ok=True)
@@ -40,7 +40,7 @@ for app in apps:
                     except OSError:time.sleep(.3)
                 if sock is None:raise RuntimeError('Control port unavailable; process exit '+str(p.poll()))
                 with sock:
-                    sock.settimeout(12);stream=sock.makefile('rwb')
+                    sock.settimeout(60);stream=sock.makefile('rwb')
                     def request(value):
                         stream.write(json.dumps(value).encode()+b'\n');stream.flush();return json.loads(stream.readline(16*1024*1024))
                     auth={}

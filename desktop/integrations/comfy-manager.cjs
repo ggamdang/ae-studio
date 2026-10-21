@@ -18,7 +18,7 @@ function createComfyManager({dataDir,bundleRoot=require('../runtime-paths.cjs').
   function status(){return {available:available(),state,message,mode,hardware,progress,model:MODEL,ramGB:Math.round(os.totalmem()/1073741824),providerFees:0,licenseAccepted:fs.existsSync(acceptance)};}
   async function probe(){
     if(hardware)return hardware;
-    if(!available())throw Error('Local AI is not installed or is incomplete. Install the separate AE Studio Local AI add-on into the same folder as AE Studio, or extract the full portable package.');
+    if(!available())throw Error(process.platform==='darwin'?'Choose Set up free local AI in AI Studio first.':'Local AI is not installed or is incomplete. Install the separate AE Studio Local AI add-on into the same folder as AE Studio, or extract the full portable package.');
     const code="import json,torch; ok=torch.cuda.is_available(); print(json.dumps({'cuda':ok,'mps':torch.backends.mps.is_available(),'name':torch.cuda.get_device_name(0) if ok else ('Apple Silicon' if torch.backends.mps.is_available() else 'CPU'),'vramGB':round(torch.cuda.get_device_properties(0).total_memory/1073741824,1) if ok else 0,'torch':torch.__version__,'architectures':torch.cuda.get_arch_list() if ok else []}))";
     hardware=await new Promise((resolve,reject)=>execFile(python,['-I','-B','-c',code],{windowsHide:true,timeout:120000,maxBuffer:1024*1024},(error,stdout)=>{if(error)return reject(Error('The bundled AI runtime could not start. Re-extract the package; on older Windows PCs check the runtime troubleshooting guide.'));try{resolve(JSON.parse(stdout.trim().split(/\r?\n/).at(-1)));}catch{reject(Error('Could not inspect the local AI hardware.'));}}));
     return hardware;
@@ -29,13 +29,15 @@ function createComfyManager({dataDir,bundleRoot=require('../runtime-paths.cjs').
     if(stopping)await stopping;
     if(starting)return starting;
     if(state==='running')return status();
-    mode=options.mode||'auto';if(!['auto','nvidia','apple','cpu'].includes(mode))throw Error('Choose automatic, NVIDIA, or CPU mode.');
+    mode=options.mode||'auto';if(!['auto','nvidia','apple','cpu'].includes(mode))throw Error('Choose automatic, Apple silicon, NVIDIA, or CPU mode.');
     state='starting';message='Checking your computer…';progress=null;
     starting=(async()=>{
       let launched;
       try{
         const device=await probe();const cpu=mode==='cpu'||(mode==='auto'&&!device.cuda&&!device.mps);
-        if(!cpu&&!device.cuda&&!device.mps)throw Error('A compatible NVIDIA GPU was not found. Choose CPU mode, or update your NVIDIA driver yourself.');
+        if(mode==='apple'&&!device.mps)throw Error('Apple graphics acceleration is unavailable. Choose CPU mode.');
+        if(mode==='nvidia'&&!device.cuda)throw Error('NVIDIA graphics acceleration is unavailable. Choose Automatic or CPU mode.');
+        if(!cpu&&!device.cuda&&!device.mps)throw Error('Supported graphics acceleration was not found. Choose CPU mode.');
         if(os.totalmem()<12*1073741824)throw Error('This bundled SDXL model needs at least 12 GB of system memory; 16 GB or more is recommended.');
         mode=cpu?'cpu':device.mps?'apple':'nvidia';message=cpu?'Starting CPU mode. Image generation will be slow.':'Starting on '+device.name+'…';
         for(const name of ['output','input','temp','user','cache'])fs.mkdirSync(path.join(root,name),{recursive:true});

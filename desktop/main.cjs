@@ -237,7 +237,7 @@ app.whenReady().then(async()=>{
   handle('studio:install',async()=>{if(installing)return;installing=true;error='';emit();try{await require('./install.cjs').installEditors(locks.filter(l=>modules.find(m=>m.id===l.id)?.available!==false),editorRoot,message=>{setupMessage=message;emit();});}catch(e){error=e.message;}finally{installing=false;emit();}return publicState();});
   handle('studio:folder',async()=>{const r=await dialog.showOpenDialog(win,{title:'Choose a shared export folder',properties:['openDirectory','createDirectory']});if(!r.canceled){saveFolder=r.filePaths[0];persist();emit();}return publicState();});
   handle('studio:reveal',id=>{const item=exportsList.find(e=>e.id===id);if(item&&fs.existsSync(item.path))shell.showItemInFolder(item.path);});
-  handle('studio:notices',()=>shell.openPath(path.join(ROOT,'notices')));
+  handle('studio:notices',()=>shell.openPath(macNative?path.resolve(ROOT,'../../../../Third-party notices'):path.join(ROOT,'notices')));
   await win.loadURL('studio://shell/index.html');
   shellReady=true;
   if(!testMode||process.env.STUDIO_TEST_INSTALLER==='1'){const launchFiles=fileArguments(process.argv,{defaultApp:process.defaultApp});if(launchFiles.length)queueFiles(launchFiles,'Startup');}

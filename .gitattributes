@@ -4,6 +4,7 @@
 *.sh text eol=lf
 *.json text eol=lf
 *.md text eol=lf
+macos/installer-scripts/* text eol=lf
 desktop/artcraft/upstream/** -text
 desktop/artcraft/renderer/** -text
 desktop/artcraft/notices/** -text

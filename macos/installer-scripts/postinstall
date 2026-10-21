@@ -1,0 +1,13 @@
+#!/bin/sh
+# Register choices for the logged-in person; never replace their default handlers.
+set -eu
+registry=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
+person=$(/usr/bin/stat -f '%Su' /dev/console)
+if [ "$person" != root ] && [ "$person" != loginwindow ] && [ -x "$registry" ]; then
+  person_id=$(/usr/bin/id -u "$person")
+  for bundle in '/Applications/AE Studio/AE Studio.app' '/Applications/AE Studio/Apps/'*.app; do
+    [ -d "$bundle" ] || continue
+    /bin/launchctl asuser "$person_id" /usr/bin/sudo -u "$person" "$registry" -f "$bundle"
+  done
+fi
+exit 0

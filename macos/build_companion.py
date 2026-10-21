@@ -116,6 +116,14 @@ def main():
     (d/'native-apps.json').write_text(json.dumps(apps,indent=2))
     info_path=app/'Contents/Info.plist';info=plistlib.loads(info_path.read_bytes())
     info.update(CFBundleDisplayName='AE Studio',CFBundleName='AE Studio',CFBundleIdentifier='com.aeeducation.aestudio',CFBundleShortVersionString='0.9.1',CFBundleVersion='0.9.1',LSMinimumSystemVersion='15.0')
+    iconset=BUILD/'AEStudio.iconset';iconset.mkdir()
+    logo=d/'ui/assets/apple-english-logo.png'
+    for size in [16,32,128,256,512]:
+        for scale in [1,2]:
+            name=f'icon_{size}x{size}'+('@2x' if scale==2 else '')+'.png'
+            run(['sips','-z',str(size*scale),str(size*scale),logo,'--out',iconset/name],stdout=subprocess.DEVNULL)
+    run(['iconutil','-c','icns',iconset,'-o',app/'Contents/Resources/AEStudio.icns'])
+    info['CFBundleIconFile']='AEStudio.icns'
     extensions=set(x for a in apps for x in a['extensions'])|{'hwp','hwpx','artcraft','glb','ppt','pps','pot','odp','ott','fodt','fods','fodp','wps','pptm','ppsm','potm','otp','xlt','xltx','xltm','ots'}
     info['CFBundleDocumentTypes']=[{'CFBundleTypeName':'AE Studio supported documents','CFBundleTypeRole':'Editor','LSHandlerRank':'Alternate','CFBundleTypeExtensions':sorted(extensions)}]
     info_path.write_bytes(plistlib.dumps(info))
@@ -128,6 +136,8 @@ def main():
         if pin.get('url') and (pin.get('ecosystem')=='maven' or pin.get('component','').startswith(('veraPDF','Temurin'))):
             fetch(pin,source/'Archive dependencies'/pathlib.Path(pin['file']).name)
     shutil.copytree(ROOT/'notices',SUITE/'Third-party notices',dirs_exist_ok=True)
+    shutil.copytree(d/'artcraft/notices',SUITE/'Third-party notices/ArtCraft workspace',dirs_exist_ok=True)
+    shutil.copy2(d/'LICENSE',SUITE/'Third-party notices/AE Studio AGPL-3.0.txt')
     shutil.copy2(ROOT/'README.md',SUITE/'Read me.md')
     (BUILD/'runtime-downloads.json').write_text(json.dumps(RECORDS,indent=2))
     run([py,'-m','pip','freeze'],stdout=(BUILD/'pdf-resolved-lock.txt').open('w'))
