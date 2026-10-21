@@ -39,6 +39,12 @@ for app in apps:
                     try:sock=socket.create_connection(('127.0.0.1',port),timeout=.5);break
                     except OSError:time.sleep(.3)
                 if sock is None:raise RuntimeError('Control port unavailable; process exit '+str(p.poll()))
+                if ident=='effectcraft':
+                    # Its --control mode deliberately does not activate the Mac app.
+                    # Exercise the ordinary bundle-opening path before inspecting UI.
+                    opened=subprocess.run(['/usr/bin/open','-a',index[ident]['bundle']],capture_output=True,text=True,timeout=15)
+                    (profile/'activation.log').write_text(opened.stdout+'\n'+opened.stderr)
+                    if opened.returncode:raise RuntimeError('macOS could not activate the EffectCraft bundle')
                 with sock:
                     sock.settimeout(60);stream=sock.makefile('rwb')
                     def request(value):
@@ -60,7 +66,11 @@ for app in apps:
                             result['screenshotReply']={k:v for k,v in shot.items() if k!='result'}
                             result['screenshotFile']=(profile/'window.png').is_file()
                         except Exception as e:result['screenshotError']=str(e)
-        except Exception as e:result['error']=str(e)
+        except Exception as e:
+            result['error']=str(e)
+            if p.poll() is None:
+                try:subprocess.run(['sample',str(p.pid),'2','1','-file',str(profile/'failure-sample.log')],capture_output=True,timeout=12)
+                except Exception:pass
         finally:
             if p.poll() is None:p.terminate()
             try:p.wait(5)

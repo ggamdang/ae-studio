@@ -138,6 +138,7 @@ async function openFiles(paths,source='Open'){
     const prepared=[];
     for(const p of files){try{
       if(macNative?.route(p)){const result=await macNative.openFile(p,dataDir);results.push(result);openMessage='Opened '+result.name+' in '+result.editor;continue;}
+      if(macNative&&!['.artcraft','.glb'].includes(path.extname(p).toLowerCase()))throw Error('This file type is not supported by AE Studio’s Mac Open command. Check the file-format guide or use the appropriate editor’s Import menu.');
       let file=await validateFile(p,{allowLegacy:typeof legacyConverter==='function',allowLarge:true});
       if(file.large&&!testMode){
         const answer=await dialog.showMessageBox(win,{type:'warning',title:'Open a large file',message:`Open ${file.name} (${(file.size/1024**2).toFixed(0)} MB)?`,detail:file.nativePDF?'This large PDF will open in PDF Tools for page preview, splitting, extraction and other local operations. The editable PDF canvas has a smaller memory limit. PDF Tools accepts up to 2 GB and 2,000 pages; complex operations can still need substantial memory.':file.streaming?'Video reads portions of the file as needed. Importing and seeking may take longer. Keep the original file available while editing.':'This editor loads the document into memory. Complex pages, layers or cells can need much more memory than the file size. Save other work before continuing. Larger opening is experimental.',buttons:['Cancel','Open large file'],defaultId:0,cancelId:0});

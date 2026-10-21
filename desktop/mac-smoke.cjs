@@ -23,7 +23,7 @@ async function run({win,openEditor,openFiles,views,publicState,app,testDir}){
    await new Promise((resolve,reject)=>require('node:child_process').execFile('/usr/bin/open',['-a',path.resolve(__dirname,'../../..'),file],e=>e?reject(e):resolve()));
    const end=Date.now()+30000;let event;
    while(Date.now()<end){try{event=JSON.parse(await fs.readFile(ledger,'utf8'));break;}catch{await new Promise(r=>setTimeout(r,200));}}
-   assert(event&&event.paths.includes(file)&&!event.error&&event.results.some(r=>r.delivered),'Finder open-file event must reach the correct editor');results.push('Finder open-file event routed');
+   assert(event&&event.paths.some(p=>p.normalize('NFC')===file.normalize('NFC'))&&!event.error&&event.results.some(r=>r.delivered),'Finder open-file event must reach the correct editor');results.push('Finder open-file event routed');
   }
   await fs.writeFile(path.join(testDir,'result.json'),JSON.stringify({ok:true,results,capabilities},null,2));app.exit(0);
  }catch(e){await fs.mkdir(testDir,{recursive:true});await fs.writeFile(path.join(testDir,'result.json'),JSON.stringify({ok:false,results,error:e.stack},null,2));app.exit(1);}

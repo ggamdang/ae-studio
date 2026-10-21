@@ -124,7 +124,7 @@ def main():
             run(['sips','-z',str(size*scale),str(size*scale),logo,'--out',iconset/name],stdout=subprocess.DEVNULL)
     run(['iconutil','-c','icns',iconset,'-o',app/'Contents/Resources/AEStudio.icns'])
     info['CFBundleIconFile']='AEStudio.icns'
-    extensions=set(x for a in apps for x in a['extensions'])|{'hwp','hwpx','artcraft','glb','ppt','pps','pot','odp','ott','fodt','fods','fodp','wps','pptm','ppsm','potm','otp','xlt','xltx','xltm','ots'}
+    extensions=set(x for a in apps for x in a['extensions'])|{'avif','hwp','hwpx','artcraft','glb','ppt','pps','pot','odp','ott','fodt','fods','fodp','wps','pptm','ppsm','potm','otp','xlt','xltx','xltm','ots'}
     info['CFBundleDocumentTypes']=[{'CFBundleTypeName':'AE Studio supported documents','CFBundleTypeRole':'Editor','LSHandlerRank':'Alternate','CFBundleTypeExtensions':sorted(extensions)}]
     info_path.write_bytes(plistlib.dumps(info))
     # Final ad-hoc signing is performed after tests stop modifying fixture files.
@@ -139,6 +139,7 @@ def main():
     shutil.copytree(d/'artcraft/notices',SUITE/'Third-party notices/ArtCraft workspace',dirs_exist_ok=True)
     shutil.copy2(d/'LICENSE',SUITE/'Third-party notices/AE Studio AGPL-3.0.txt')
     shutil.copy2(ROOT/'README.md',SUITE/'Read me.md')
+    shutil.copy2(ROOT/'Repository choices.md',SUITE/'Repository choices.md')
     (BUILD/'runtime-downloads.json').write_text(json.dumps(RECORDS,indent=2))
     run([py,'-m','pip','freeze'],stdout=(BUILD/'pdf-resolved-lock.txt').open('w'))
     run([lpy,'-m','pip','freeze'],stdout=(BUILD/'language-resolved-lock.txt').open('w'))

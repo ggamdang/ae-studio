@@ -18,7 +18,9 @@ import shutil
 if (D/'pdf/language-fixtures').exists():shutil.copytree(D/'pdf/language-fixtures',QA/'language-previews',dirs_exist_ok=True)
 if (D/'pdf/language-test-report.json').exists():shutil.copy2(D/'pdf/language-test-report.json',QA/'language-test-report.json')
 test('hangul-start',[D/'hangul-runtime/hwp','--version'])
+test('avif-conversion',[PY,ROOT/'test_avif.py',D,QA/'avif'])
 fixtures=[ROOT/'checks/exports/outputs 한글'/name for name in ['document.docx','document.pdf','sheet.xlsx','slides.pptx']]
+fixtures.append(QA/'avif/image 한글.avif')
 env={**os.environ,'STUDIO_TEST_MAC':'1','STUDIO_TEST_OUTPUT':str(QA/'gui'),'UNIFIED_STUDIO_DATA':str(QA/'profile'),'AE_MAC_FIXTURES':json.dumps([str(p) for p in fixtures])}
 test('desktop-gui',[APP/'Contents/MacOS/Electron','--studio-test'],env=env,timeout=360)
 test('hangul-conversion',['node',ROOT/'test_hangul.cjs',D,ROOT/'fixtures',QA/'hangul'],timeout=180)
